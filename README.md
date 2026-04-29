@@ -1,112 +1,171 @@
 # 🐓 GRF Growths
 
-A premium, modern, and high-performance React web application built for **GRF Growths**. Designed to showcase pure breed roosters, highlight farming values, and directly connect customers with the farm via WhatsApp.
+A premium, modern, and high-performance React web application built for **GRF Growths** — a dedicated rooster farm based in **Tirupattur District, Tamil Nadu**. Designed to showcase pure breed roosters, highlight farming values, and directly connect customers via WhatsApp and Phone.
 
-![GRF Growths Banner](https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&h=400&fit=crop&q=80)
+---
 
 ## ✨ Features
 
-- **🌐 Bilingual Support (English / Tamil)**: A robust, state-based localization system allowing users to instantly switch the entire website's language via a clean navigation toggle.
-- **📱 Mobile-First Responsive Design**: Carefully crafted with Tailwind CSS to ensure a flawless experience across all devices, from small smartphones to large desktop monitors.
-- **💬 WhatsApp Integration**: Instant lead generation! All "Contact" and "Enquiry" buttons are deeply integrated with the WhatsApp API, pre-filling customized messages for specific roosters or general queries.
-- **🔍 Dynamic Product Filtering**: The "Roosters" page features instant, client-side filtering by breed, age, and a dynamic search bar for seamless product discovery.
-- **🎨 Premium UI / UX**: Employs a stunning, rural-agriculture color palette (Emerald Greens, Soft Creams) with soft shadows, glassmorphism effects, and smooth micro-animations.
+- **🌐 Bilingual Support (English / Tamil)** — Full localization system allowing instant language switching across all pages via a navigation toggle.
+- **📱 Mobile-First Responsive Design** — Built with Tailwind CSS for a flawless experience on all screen sizes.
+- **💬 WhatsApp Contact Form** — The contact form collects Name, Phone, and Requirement, then pre-fills a WhatsApp message and opens it in a new tab — no backend required.
+- **📞 Floating Action Buttons** — Persistent Phone & WhatsApp buttons fixed to the bottom-right corner across the entire site for instant customer reach.
+- **🔍 Dynamic Product Filtering** — The Roosters page features live search and breed filtering with client-side performance.
+- **🗺 Google Maps Integration** — The Contact page embeds a live map pointing to the exact farm location with a direct Google Maps directions link.
+- **📸 Local Asset Gallery** — Gallery page powered entirely by local farm photos (no external URLs), with category-based filtering.
+- **🎨 Premium UI / UX** — Curated color palette (deep maroon/crimson brand tones) with smooth micro-animations, drop shadows, and glassmorphism accents.
+
+---
 
 ## 🛠 Tech Stack
 
-- **Frontend Framework**: [React 18](https://react.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/) for strict type safety
-- **Build Tool**: [Vite](https://vitejs.dev/) for lightning-fast HMR and optimized builds
-- **Styling**: [Tailwind CSS v3](https://tailwindcss.com/) for utility-first styling
-- **Routing**: [React Router DOM v6](https://reactrouter.com/) for SPA navigation
-- **Icons**: [Lucide React](https://lucide.dev/) for clean, scalable SVG icons
+| Technology | Purpose |
+|---|---|
+| [React 18](https://react.dev/) | Frontend Framework |
+| [TypeScript](https://www.typescriptlang.org/) | Type Safety |
+| [Vite](https://vitejs.dev/) | Build Tool & Dev Server |
+| [Tailwind CSS v3](https://tailwindcss.com/) | Utility-first Styling |
+| [React Router DOM v6](https://reactrouter.com/) | Client-side SPA Routing |
+| [Lucide React](https://lucide.dev/) | SVG Icon Library |
+
+---
 
 ## 📂 Project Structure
 
 ```text
-├── public/                 # Static assets (Favicons, etc.)
+GRF/
+├── public/                   # Static assets (favicons, etc.)
 ├── src/
-│   ├── components/         # Reusable UI components (Navbar, Footer, CTASection, RoosterCard)
-│   ├── context/            # React Context providers (LanguageContext.tsx)
-│   ├── pages/              # Application views (Home, Roosters, About, Gallery, Contact)
-│   ├── App.tsx             # Main application layout and routing
-│   ├── constants.ts        # Global constants, configuration, and data arrays
-│   ├── index.css           # Global Tailwind styles and custom CSS components
-│   ├── main.tsx            # React entry point
-│   └── translations.ts     # Dictionary mapping English keys to Tamil translations
-├── netlify.toml            # Netlify deployment configuration (SPA fallback)
-├── vercel.json             # Vercel deployment configuration (SPA fallback)
-├── tailwind.config.js      # Tailwind CSS configuration and theme tokens
-└── vite.config.ts          # Vite build configuration
+│   ├── assets/               # Local images and logo (rooster.png, grf-growths.jpeg, etc.)
+│   ├── components/           # Reusable UI components
+│   │   ├── Navbar.tsx        # Top navigation bar with language toggle
+│   │   ├── Footer.tsx        # Footer with social links & contact info
+│   │   ├── RoosterCard.tsx   # Product card for rooster listings
+│   │   ├── CTASection.tsx    # Call-to-action banner component
+│   │   ├── WhatsAppFloat.tsx # Floating WhatsApp button
+│   │   └── PhoneFloat.tsx    # Floating Phone call button
+│   ├── context/
+│   │   └── LanguageContext.tsx  # React Context for EN/TA language state
+│   ├── pages/
+│   │   ├── Home.tsx          # Landing page with hero, about preview & testimonials
+│   │   ├── Roosters.tsx      # Product listing with search & breed filter
+│   │   ├── About.tsx         # Farm story, values, and commitment section
+│   │   ├── Gallery.tsx       # Photo gallery with category tabs
+│   │   └── Contact.tsx       # Contact form (WhatsApp redirect) + Google Maps
+│   ├── App.tsx               # Root layout: Navbar, Routes, Footer, Float buttons
+│   ├── constants.ts          # ⭐ Single source of truth for all business data
+│   ├── translations.ts       # EN → TA translation dictionary
+│   ├── index.css             # Global styles & Tailwind component classes
+│   └── main.tsx              # React entry point
+├── netlify.toml              # Netlify SPA fallback config
+├── vercel.json               # Vercel SPA fallback config
+├── tailwind.config.js        # Tailwind theme tokens & custom colors
+└── vite.config.ts            # Vite build configuration
 ```
+
+---
 
 ## 🚀 Getting Started
 
-Follow these steps to run the project locally on your machine.
-
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed (v16 or higher).
+Ensure [Node.js](https://nodejs.org/) v16+ is installed.
 
-### Installation
+### Installation & Development
 
-1. **Clone the repository** (if using Git) or download the project folder.
-2. **Navigate to the project directory**:
-   ```bash
-   cd GRF
-   ```
-3. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-### Running the Development Server
-Start the Vite development server:
 ```bash
+# 1. Navigate to the project directory
+cd GRF
+
+# 2. Install dependencies
+npm install
+
+# 3. Start the development server
 npm run dev
 ```
-The application will be available at `http://localhost:5173`.
 
-### Building for Production
-To generate a production-ready optimized build:
+The app will be live at `http://localhost:5173`.
+
+### Production Build
+
 ```bash
 npm run build
 ```
-The compiled files will be output to the `dist` directory.
+
+Output is placed in the `dist/` directory.
+
+---
 
 ## ⚙️ Customization & Maintenance
 
-### Adding or Updating Roosters
-To add a new rooster to the inventory, open `src/constants.ts` and locate the `ROOSTER_BREEDS` array. Add a new object following this structure:
-```javascript
+### 📌 Updating Business Info (Phone, Address, Socials)
+All business data is centralized in **`src/constants.ts`**. Edit there and changes propagate everywhere:
+
+```typescript
+export const PHONE = '+91 99529 08818';
+export const EMAIL = 'grf.entrepreneur@gmail.com';
+export const ADDRESS = 'No.81, Mankanoor, Puthagaram, Tamil Nadu 635602';
+export const LOCATION = 'Tirupattur district, Tamil Nadu';
+export const FACEBOOK_LINK = 'https://www.facebook.com/share/1ChfWmbqgN/';
+export const INSTAGRAM_LINK = 'https://www.instagram.com/guru_rooster/';
+export const MAPS_LINK = 'https://maps.app.goo.gl/gRkaQ4JexHB9AtSr6';
+```
+
+### 🐓 Adding a New Rooster
+Open `src/constants.ts` and add to the `ROOSTER_BREEDS` array:
+
+```typescript
 {
-  id: 'unique-id',
+  id: 7,
   name: 'Breed Name',
-  breed: 'Breed Category',
-  age: 'X Months',
-  price: '₹X,XXX',
-  image: 'https://link-to-image.jpg',
-  badge: 'Available', // Optional: 'Popular', 'Premium'
-  description: 'A short description of the rooster.'
+  nameTa: 'இன பெயர்',
+  breed: 'Category',
+  age: 'X – Y Months',
+  price: 'Affordable Prices',
+  badge: 'Available',       // or 'Popular', 'Premium'
+  badgeColor: 'bg-primary', // or 'bg-amber-500', 'bg-purple-600'
+  description: 'Short description.',
+  image: imgVariable,       // import at the top of constants.ts
 }
 ```
 
-### Updating Translations
-If you add new text to the website, ensure it supports the Tamil toggle by adding it to `src/translations.ts`:
+### 🌐 Adding a Translation
+Add new English text keys to `src/translations.ts`:
+
 ```typescript
-'Your English Text Here': { ta: 'உங்கள் தமிழ் உரை இங்கே' },
+'Your English Text': { ta: 'உங்கள் தமிழ் உரை' },
 ```
 
-### Updating Contact Information
-To change the phone number, email, or physical address across the entire site, simply update the variables at the top of `src/constants.ts`.
+### 🖼 Adding Gallery Images
+1. Drop your image into `src/assets/`
+2. Import it in `src/constants.ts`
+3. Add an entry to the `GALLERY_IMAGES` array:
+
+```typescript
+{ id: 18, src: myNewImg, alt: 'Description', category: 'Roosters' }
+```
+
+Categories available: `Roosters`, `Farm`, `Chicks`, `Farm Life`, `Facilities`
+
+---
 
 ## 🌍 Deployment
 
-This project is configured as a Single Page Application (SPA). When deploying, all traffic must be routed to `index.html`. 
+The project is pre-configured as a Single Page Application (SPA). All traffic is routed through `index.html`.
 
-We have pre-configured files for smooth deployment:
-- **Vercel**: Just run `npx vercel` in the terminal, and it will read `vercel.json`.
-- **Netlify**: Drag and drop the `dist` folder to Netlify, or link your GitHub repo. It will read `netlify.toml`.
-- **GitHub Pages**: Ensure you set up an action to deploy the `dist` folder and configure SPA fallback scripts.
+| Platform | How to Deploy |
+|---|---|
+| **Vercel** | Run `npx vercel` — reads `vercel.json` automatically |
+| **Netlify** | Drag & drop `dist/` folder or link GitHub repo — reads `netlify.toml` |
+| **GitHub Pages** | Deploy `dist/` via GitHub Actions with SPA fallback enabled |
+
+---
+
+## 🏢 Credits
+
+- **Developed by**: [XenFirm Technologies](https://xenfirm.com)
+- **Client**: GRF Growths, Tirupattur District, Tamil Nadu
+
+---
 
 ## 📄 License
 © 2026 GRF Growths. All Rights Reserved.
