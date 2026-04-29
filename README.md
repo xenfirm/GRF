@@ -1,8 +1,8 @@
-# 🐓 Guru Rooster Farm
+# 🐓 GRF Growths
 
-A premium, modern, and high-performance React web application built for **Guru Rooster Farm**. Designed to showcase pure breed roosters, highlight farming values, and directly connect customers with the farm via WhatsApp.
+A premium, modern, and high-performance React web application built for **GRF Growths**. Designed to showcase pure breed roosters, highlight farming values, and directly connect customers with the farm via WhatsApp.
 
-![Guru Rooster Farm Banner](https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&h=400&fit=crop&q=80)
+![GRF Growths Banner](https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&h=400&fit=crop&q=80)
 
 ## ✨ Features
 
@@ -109,4 +109,4 @@ We have pre-configured files for smooth deployment:
 - **GitHub Pages**: Ensure you set up an action to deploy the `dist` folder and configure SPA fallback scripts.
 
 ## 📄 License
-© 2026 Guru Rooster Farm. All Rights Reserved.
+© 2026 GRF Growths. All Rights Reserved.

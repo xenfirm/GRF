@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppFloat from './components/WhatsAppFloat';
+import PhoneFloat from './components/PhoneFloat';
 import Home from './pages/Home';
 import Roosters from './pages/Roosters';
 import About from './pages/About';
@@ -34,7 +35,11 @@ function AppLayout() {
         </Routes>
       </main>
       <Footer />
-      <WhatsAppFloat />
+      {/* Floating action buttons */}
+      <div className="fixed bottom-6 right-5 z-50 flex flex-col items-center gap-3">
+        <PhoneFloat />
+        <WhatsAppFloat />
+      </div>
     </div>
   );
 }

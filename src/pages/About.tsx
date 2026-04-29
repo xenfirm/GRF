@@ -1,6 +1,7 @@
 import { Heart, Leaf, Shield, Handshake } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import aboutHeroImg from '../assets/grf-growths.jpeg';
 
 export default function About() {
   const { t } = useLanguage();
@@ -43,7 +44,7 @@ export default function About() {
               {t('Our Farm. Our Passion.')}<br />{t('Your Trust.')}
             </h1>
             <p className="text-gray-600 leading-relaxed mb-6">
-              {t('Guru Rooster Farm is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.')}
+              {t('GRF Growths is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.')}
             </p>
             {/* Value Icons */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -57,7 +58,7 @@ export default function About() {
           </div>
           <div>
             <img
-              src="https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=700&h=500&fit=crop&q=85"
+              src={aboutHeroImg}
               alt="Farm owner holding rooster"
               className="w-full h-[380px] object-cover rounded-2xl shadow-xl"
             />
@@ -81,7 +82,7 @@ export default function About() {
               <p className="text-primary font-medium italic text-sm">
                 {t('"We don\'t just raise roosters, we raise trust and long-term relationships."')}
               </p>
-              <footer className="text-gray-500 text-xs mt-1">{t('– Founder, Guru Rooster Farm')}</footer>
+              <footer className="text-gray-500 text-xs mt-1">{t('– Founder, GRF Growths')}</footer>
             </blockquote>
           </div>
 

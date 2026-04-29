@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Phone, Leaf, Shield, Award, Users, Star, ChevronRight } from 'lucide-react';
-import { CALL_LINK, WHATSAPP_LINK, ROOSTER_BREEDS } from '../constants';
+import { CALL_LINK, WHATSAPP_LINK, ROOSTER_BREEDS, LOCATION } from '../constants';
 import RoosterCard from '../components/RoosterCard';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import roosterHeroBackground from '../assets/rooster.png';
+import roosterHeroOverlay from '../assets/country-rooster-healthy.jpg';
 
 export default function Home() {
   const { t } = useLanguage();
@@ -12,12 +14,12 @@ export default function Home() {
     { icon: <Leaf size={22} />, title: t('Natural Feeding'), desc: t('All our birds are fed with organic, natural feed – no artificial growth hormones ever.') },
     { icon: <Shield size={22} />, title: t('Healthy & Strong Birds'), desc: t('Regular health checks and vaccinations ensure every rooster is 100% healthy.') },
     { icon: <Award size={22} />, title: t('Quality Breeds'), desc: t('We specialize in Aseel, Nattu Seval, Kili, and Country White pure breeds.') },
-    { icon: <Users size={22} />, title: t('Trusted by Customers'), desc: t('Over 500+ happy customers across Salem and surrounding districts.') },
+    { icon: <Users size={22} />, title: t('Trusted by Customers'), desc: t('Over 500+ happy customers across Tirupattur district and surrounding areas.') },
   ];
 
   const TESTIMONIALS = [
-    { name: 'Murugan K.', location: t('Salem'), text: t('"Excellent quality roosters! Bought 3 Aseel breed and they are very strong and healthy. Guru anna is very helpful."'), rating: 5 },
-    { name: 'Selvam R.', location: t('Namakkal'), text: t('"Best farm in Salem. The birds are very healthy and the prices are fair. Will definitely buy again!"'), rating: 5 },
+    { name: 'Murugan K.', location: t('Tirupattur district'), text: t('"Excellent quality roosters! Bought 3 Aseel breed and they are very strong and healthy. Guru anna is very helpful."'), rating: 5 },
+    { name: 'Selvam R.', location: t('Namakkal'), text: t('"Best farm in Tirupattur district. The birds are very healthy and the prices are fair. Will definitely buy again!"'), rating: 5 },
     { name: 'Rajan T.', location: t('Erode'), text: t('"Got Nattu Seval for traditional purpose. Very good quality. Trusted seller with great service."'), rating: 5 },
   ];
 
@@ -27,7 +29,7 @@ export default function Home() {
       <section className="hero-section min-h-[480px] md:min-h-[520px] flex items-center relative overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=1200&h=600&fit=crop&q=80"
+            src={roosterHeroBackground}
             alt="Farm background"
             className="w-full h-full object-cover object-center opacity-25"
           />
@@ -35,7 +37,7 @@ export default function Home() {
         <div className="hero-overlay absolute inset-0 z-10" />
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full py-16 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="section-label mb-3 block">{t('Salem, Tamil Nadu')}</span>
+            <span className="section-label mb-3 block">{LOCATION}</span>
             <h1 className="section-title text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary-800">
               {t('Premium Quality')}<br />
               <span className="text-primary">{t('Roosters')}</span><br />
@@ -56,9 +58,9 @@ export default function Home() {
           </div>
           <div className="hidden md:flex justify-end">
             <img
-              src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600&h=450&fit=crop&q=85"
+              src={roosterHeroOverlay}
               alt="Premium Rooster"
-              className="w-[480px] h-[360px] object-cover rounded-2xl shadow-2xl"
+              className="w-full max-w-[420px] aspect-square object-cover rounded-2xl shadow-2xl ml-auto"
             />
           </div>
         </div>
@@ -73,7 +75,7 @@ export default function Home() {
               {t('Our Farm. Our Passion.')}<br />{t('Your Trust.')}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              {t('Guru Rooster Farm is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.')}
+              {t('GRF Growths is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.')}
             </p>
             <p className="text-gray-600 leading-relaxed mb-6">
               {t('We believe in natural farming – no shortcuts, no compromises. Every bird at our farm is raised with love, proper nutrition, and hygienic conditions.')}
@@ -84,9 +86,9 @@ export default function Home() {
           </div>
           <div className="relative">
             <img
-              src="https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=600&h=450&fit=crop&q=85"
+              src={roosterHeroBackground}
               alt="Farm owner with rooster"
-              className="w-full h-80 object-cover rounded-2xl shadow-card"
+              className="w-full h-80 object-contain rounded-2xl shadow-card"
             />
             <div className="absolute -bottom-5 -left-5 bg-primary text-white rounded-2xl px-5 py-4 shadow-lg hidden sm:block">
               <div className="text-3xl font-bold font-display">10+</div>
@@ -120,7 +122,7 @@ export default function Home() {
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <div className="text-center mb-10">
           <span className="section-label mb-2 block">{t('Why Us')}</span>
-          <h2 className="section-title text-3xl font-bold">{t('Why Choose Guru Rooster Farm?')}</h2>
+          <h2 className="section-title text-3xl font-bold">{t('Why Choose GRF Growths?')}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {WHY_CHOOSE.map((item) => (

@@ -21,7 +21,7 @@ export default function RoosterCard({ name, age, price, badge, badgeColor, descr
         <img
           src={image}
           alt={name}
-          className="w-full h-52 object-cover"
+          className="w-full aspect-square object-cover"
           onError={(e) => {
             (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&h=300&fit=crop&q=80';
           }}
@@ -37,7 +37,7 @@ export default function RoosterCard({ name, age, price, badge, badgeColor, descr
           <span>{t('Age: ')} {age}</span>
         </div>
         <p className="text-gray-500 text-xs mb-3 leading-relaxed">{t(description)}</p>
-        <div className="text-primary font-bold text-lg mb-3">{price}</div>
+        <div className="text-primary font-bold text-lg mb-3">{t(price)}</div>
         <a
           href={`${WHATSAPP_LINK}?text=${msg}`}
           target="_blank"

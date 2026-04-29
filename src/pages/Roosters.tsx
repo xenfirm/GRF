@@ -6,6 +6,9 @@ import RoosterCard from '../components/RoosterCard';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
 
+import heroBg from '../assets/poultry-farm-clean-environment.jpg';
+import featuredImg from '../assets/premium-country-chicken.jpg';
+
 const BREEDS = ['All', 'Country White', 'Aseel', 'Kili Seval', 'Nattu Seval', 'Kadaknath', 'Giriraja'];
 const AGES = ['All Ages', '5–7 Months', '6–8 Months', '7–10 Months', '8–12 Months'];
 
@@ -29,7 +32,7 @@ export default function Roosters() {
       <section className="hero-section relative overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1612170153139-6f881ff067e0?w=1200&h=400&fit=crop&q=80"
+            src={heroBg}
             alt="Roosters"
             className="w-full h-full object-cover opacity-30"
           />
@@ -49,9 +52,9 @@ export default function Roosters() {
           </div>
           <div className="hidden md:flex justify-end">
             <img
-              src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=500&h=350&fit=crop&q=85"
+              src={featuredImg}
               alt="Featured rooster"
-              className="w-[420px] h-[300px] object-cover rounded-2xl shadow-xl"
+              className="w-full max-w-[420px] h-auto rounded-2xl shadow-xl ml-auto"
             />
           </div>
         </div>

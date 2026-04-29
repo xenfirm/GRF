@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { GALLERY_IMAGES } from '../constants';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import heroBg from '../assets/rooster.png';
+import featuredImg from '../assets/country-rooster-healthy.jpg';
 
 const CATEGORIES = ['All Photos', 'Roosters', 'Farm', 'Chicks', 'Farm Life', 'Facilities'];
 
@@ -19,7 +21,7 @@ export default function Gallery() {
       <section className="hero-section relative overflow-hidden min-h-[320px] flex items-center">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1400&h=500&fit=crop&q=80"
+            src={heroBg}
             alt="Farm gallery"
             className="w-full h-full object-cover opacity-40"
           />
@@ -37,9 +39,9 @@ export default function Gallery() {
           </div>
           <div className="hidden md:block">
             <img
-              src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=600&h=400&fit=crop&q=85"
+              src={featuredImg}
               alt="Gallery rooster"
-              className="w-full h-[280px] object-cover rounded-2xl shadow-xl"
+              className="w-full aspect-square max-w-[360px] ml-auto object-cover rounded-2xl shadow-xl"
             />
           </div>
         </div>
@@ -68,15 +70,15 @@ export default function Gallery() {
 
       {/* IMAGE GRID */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
           {filtered.map((img) => (
-            <div key={img.id} className="gallery-item aspect-square rounded-xl overflow-hidden">
+            <div key={img.id} className="gallery-item rounded-xl overflow-hidden break-inside-avoid">
               <img
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                className="w-full h-auto object-cover transition-transform duration-500 hover:scale-110"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&h=400&fit=crop&q=80';
+                  (e.target as HTMLImageElement).src = heroBg;
                 }}
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-3">

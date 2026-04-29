@@ -10,11 +10,12 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   'Enquire on WhatsApp': { ta: 'வாட்ஸ்அப்பில் விசாரிக்கவும்' },
   
   // Topbar
-  'Salem, Tamil Nadu, India': { ta: 'சேலம், தமிழ்நாடு, இந்தியா' },
+  'Tirupattur district, Tamil Nadu, India': { ta: 'திருப்பத்தூர் மாவட்டம், தமிழ்நாடு, இந்தியா' },
   'Healthy Birds': { ta: 'ஆரோக்கியமான பறவைகள்' },
   'Natural Care': { ta: 'இயற்கை பராமரிப்பு' },
   'Strong Breeds': { ta: 'வலுவான இனங்கள்' },
-  'Salem, Tamil Nadu': { ta: 'சேலம், தமிழ்நாடு' },
+  'Tirupattur district, Tamil Nadu': { ta: 'திருப்பத்தூர் மாவட்டம், தமிழ்நாடு' },
+  'Tirupattur district': { ta: 'திருப்பத்தூர் மாவட்டம்' },
 
   // Home Hero
   'Premium Quality': { ta: 'உயர்தரமான' },
@@ -24,7 +25,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   // Home About Preview
   'Our Farm. Our Passion.': { ta: 'எங்கள் பண்ணை. எங்கள் ஆர்வம்.' },
   'Your Trust.': { ta: 'உங்கள் நம்பிக்கை.' },
-  'Guru Rooster Farm is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.': { ta: 'குரு ரூஸ்டர் ஃபார்ம் என்பது ஆரோக்கியமான, வலுவான மற்றும் தூய்மையான சேவல்களை வளர்ப்பதில் கவனம் செலுத்தும் ஒரு பிரத்யேக பண்ணையாகும். பல வருட அனுபவத்துடன், விவசாயிகளுக்கும் சேவல் பிரியர்களுக்கும் சிறந்த தரமான பறவைகளை வழங்குகிறோம்.' },
+  'GRF Growths is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.': { ta: 'GRF Growths என்பது ஆரோக்கியமான, வலுவான மற்றும் தூய்மையான சேவல்களை வளர்ப்பதில் கவனம் செலுத்தும் ஒரு பிரத்யேக பண்ணையாகும். பல வருட அனுபவத்துடன், விவசாயிகளுக்கும் சேவல் பிரியர்களுக்கும் சிறந்த தரமான பறவைகளை வழங்குகிறோம்.' },
   'We believe in natural farming – no shortcuts, no compromises. Every bird at our farm is raised with love, proper nutrition, and hygienic conditions.': { ta: 'நாங்கள் இயற்கை விவசாயத்தை நம்புகிறோம் - எந்த குறுக்குவழிகளும் இல்லை, எந்த சமரசமும் இல்லை. எங்கள் பண்ணையில் உள்ள ஒவ்வொரு பறவையும் அன்பு, சரியான ஊட்டச்சத்து மற்றும் சுகாதாரமான சூழ்நிலையுடன் வளர்க்கப்படுகிறது.' },
   'Know More': { ta: 'மேலும் அறிய' },
   'Years of Experience': { ta: 'வருட அனுபவம்' },
@@ -35,7 +36,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
 
   // Why Us
   'Why Us': { ta: 'ஏன் நாங்கள்' },
-  'Why Choose Guru Rooster Farm?': { ta: 'ஏன் குரு ரூஸ்டர் பண்ணையை தேர்வு செய்ய வேண்டும்?' },
+  'Why Choose GRF Growths?': { ta: 'ஏன் GRF Growths-ஐ தேர்வு செய்ய வேண்டும்?' },
   'Natural Feeding': { ta: 'இயற்கை தீவனம்' },
   'All our birds are fed with organic, natural feed – no artificial growth hormones ever.': { ta: 'எங்கள் பறவைகள் அனைத்தும் ஆர்கானிக், இயற்கை தீவனத்துடன் வளர்க்கப்படுகின்றன - செயற்கை வளர்ச்சி ஹார்மோன்கள் இல்லை.' },
   'Healthy & Strong Birds': { ta: 'ஆரோக்கியமான & வலுவான பறவைகள்' },
@@ -43,13 +44,13 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   'Quality Breeds': { ta: 'தரமான இனங்கள்' },
   'We specialize in Aseel, Nattu Seval, Kili, and Country White pure breeds.': { ta: 'ஆசீல், நாட்டு சேவல், கிளி மற்றும் வெள்ளை சேவல் தூய இனங்களில் நாங்கள் நிபுணத்துவம் பெற்றுள்ளோம்.' },
   'Trusted by Customers': { ta: 'வாடிக்கையாளர்களின் நம்பிக்கை' },
-  'Over 500+ happy customers across Salem and surrounding districts.': { ta: 'சேலம் மற்றும் சுற்றியுள்ள மாவட்டங்களில் 500 க்கும் மேற்பட்ட மகிழ்ச்சியான வாடிக்கையாளர்கள்.' },
+  'Over 500+ happy customers across Tirupattur district and surrounding areas.': { ta: 'திருப்பத்தூர் மாவட்டம் மற்றும் சுற்றியுள்ள பகுதிகளில் 500 க்கும் மேற்பட்ட மகிழ்ச்சியான வாடிக்கையாளர்கள்.' },
 
   // Testimonials
   'Testimonials': { ta: 'வாடிக்கையாளர் கருத்துக்கள்' },
   'What Our Customers Say': { ta: 'எங்கள் வாடிக்கையாளர்கள் என்ன சொல்கிறார்கள்' },
   '"Excellent quality roosters! Bought 3 Aseel breed and they are very strong and healthy. Guru anna is very helpful."': { ta: '"சிறந்த தரமான சேவல்கள்! 3 ஆசீல் இனங்களை வாங்கினேன், அவை மிகவும் வலுவாகவும் ஆரோக்கியமாகவும் உள்ளன. குரு அண்ணா மிகவும் உதவியாக இருந்தார்."' },
-  '"Best farm in Salem. The birds are very healthy and the prices are fair. Will definitely buy again!"': { ta: '"சேலத்தில் உள்ள சிறந்த பண்ணை. பறவைகள் மிகவும் ஆரோக்கியமாக உள்ளன மற்றும் விலைகள் நியாயமானவை. கண்டிப்பாக மீண்டும் வாங்குவேன்!"' },
+  '"Best farm in Tirupattur district. The birds are very healthy and the prices are fair. Will definitely buy again!"': { ta: '"திருப்பத்தூர் மாவட்டத்தில் உள்ள சிறந்த பண்ணை. பறவைகள் மிகவும் ஆரோக்கியமாக உள்ளன மற்றும் விலைகள் நியாயமானவை. கண்டிப்பாக மீண்டும் வாங்குவேன்!"' },
   '"Got Nattu Seval for traditional purpose. Very good quality. Trusted seller with great service."': { ta: '"பாரம்பரிய நோக்கத்திற்காக நாட்டு சேவல் வாங்கினேன். மிகச் சிறந்த தரம். சிறந்த சேவையுடன் நம்பகமான விற்பனையாளர்."' },
 
   // Roosters Page
@@ -66,7 +67,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   'Our journey started with a passion for poultry farming and a dream to produce top quality roosters. We believe that good genetics, proper nutrition and hygiene are the key to raising strong birds.': { ta: 'கோழி வளர்ப்பின் மீதான ஆர்வத்துடனும், உயர்தர சேவல்களை உற்பத்தி செய்யும் கனவுடனும் எங்களது பயணம் தொடங்கியது. நல்ல மரபியல், முறையான ஊட்டச்சத்து மற்றும் சுகாதாரம் ஆகியவை வலுவான பறவைகளை வளர்ப்பதற்கு முக்கியம் என்று நாங்கள் நம்புகிறோம்.' },
   'Today, our farm is trusted by many farmers and customers who value our quality, honesty and service.': { ta: 'இன்று, தரம், நேர்மை மற்றும் சேவையை மதிக்கும் பல விவசாயிகள் மற்றும் வாடிக்கையாளர்களால் எங்கள் பண்ணை நம்பப்படுகிறது.' },
   '"We don\'t just raise roosters, we raise trust and long-term relationships."': { ta: '"நாங்கள் சேவல்களை மட்டும் வளர்ப்பதில்லை, நாங்கள் நம்பிக்கையையும் நீண்ட கால உறவுகளையும் வளர்க்கிறோம்."' },
-  '– Founder, Guru Rooster Farm': { ta: '- நிறுவனர், குரு ரூஸ்டர் ஃபார்ம்' },
+  '– Founder, GRF Growths': { ta: '- நிறுவனர், GRF Growths' },
   'Happy Customers': { ta: 'மகிழ்ச்சியான வாடிக்கையாளர்கள்' },
   '100%': { ta: '100%' },
   'Our Farm': { ta: 'எங்கள் பண்ணை' },
@@ -122,7 +123,7 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   'Message Sent via WhatsApp!': { ta: 'வாட்ஸ்அப் மூலம் செய்தி அனுப்பப்பட்டது!' },
   'Your information is safe with us. We never share your details.': { ta: 'உங்கள் தகவல் எங்களிடம் பாதுகாப்பாக உள்ளது. உங்கள் விவரங்களை நாங்கள் ஒருபோதும் பகிர மாட்டோம்.' },
   'Find Us Here': { ta: 'எங்களை இங்கே தேடுங்கள்' },
-  'We are located in Salem, Tamil Nadu.': { ta: 'நாங்கள் தமிழ்நாட்டின் சேலத்தில் அமைந்துள்ளோம்.' },
+  'We are located in ': { ta: 'நாங்கள் அமைந்துள்ள இடம்: ' },
   'Click on the map for directions.': { ta: 'வழிமுறைகளுக்கு வரைபடத்தைக் கிளிக் செய்யவும்.' },
   'Get Directions': { ta: 'வழிமுறைகளைப் பெறவும்' },
 
@@ -139,7 +140,8 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   // Footer
   'Quick Links': { ta: 'விரைவான இணைப்புகள்' },
   'Contact Info': { ta: 'தொடர்பு தகவல்' },
-  '© 2024 Guru Rooster Farm. All Rights Reserved.': { ta: '© 2024 குரு ரூஸ்டர் பண்ணை. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.' },
+  '© 2026 GRF Growths. All Rights Reserved.': { ta: '© 2026 GRF Growths. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.' },
+  'Developed by': { ta: 'உருவாக்கியவர்' },
   
   // Breeds (Fallback for constants)
   'Country White': { ta: 'வெள்ளை சேவல்' },
@@ -161,4 +163,5 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   'Popular': { ta: 'பிரபலம்' },
   'Premium': { ta: 'சிறப்பு' },
   'Age: ': { ta: 'வயது: ' },
+  'Affordable Prices': { ta: 'கட்டுப்படியான விலைகள்' },
 };
