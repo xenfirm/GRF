@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Phone, Leaf, Shield, Award, Users, Star, ChevronRight } from 'lucide-react';
-import { CALL_LINK, WHATSAPP_LINK, ROOSTER_BREEDS, LOCATION } from '../constants';
+import { CALL_LINK, WHATSAPP_LINK, LOCATION } from '../constants';
 import RoosterCard from '../components/RoosterCard';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import { useBirds } from '../hooks/useBirds';
 import roosterHeroBackground from '../assets/rooster.png';
 import roosterHeroOverlay from '../assets/country-rooster-healthy.jpg';
 
 export default function Home() {
   const { t } = useLanguage();
+  const { birds, loading: birdsLoading, error: birdsError } = useBirds(true);
+  const featuredBirds = birds.filter((bird) => bird.is_featured).slice(0, 4);
 
   const WHY_CHOOSE = [
     { icon: <Leaf size={22} />, title: t('Natural Feeding'), desc: t('All our birds are fed with organic, natural feed – no artificial growth hormones ever.') },
@@ -111,9 +114,23 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {ROOSTER_BREEDS.slice(0, 4).map((r) => (
-              <RoosterCard key={r.id} {...r} />
+            {birdsLoading && <div className="col-span-full text-center text-sm text-gray-500 py-8">{t('Loading roosters...')}</div>}
+            {birdsError && <div className="col-span-full text-center text-sm text-red-600 py-8">{birdsError}</div>}
+            {!birdsLoading && !birdsError && featuredBirds.map((r) => (
+              <RoosterCard
+                key={r.id}
+                name={r.name_en}
+                nameTa={r.name_ta}
+                age={r.age}
+                price={r.price_text}
+                priceNum={r.price}
+                badge={r.badge}
+                description={r.description}
+                image={r.image_url || ''}
+                isAvailable={r.is_available}
+              />
             ))}
+            {!birdsLoading && !birdsError && featuredBirds.length === 0 && <div className="col-span-full text-center text-sm text-gray-500 py-8">{t('No roosters found. Try a different filter.')}</div>}
           </div>
         </div>
       </section>

@@ -10,6 +10,13 @@ import About from './pages/About';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
 import { LanguageProvider } from './context/LanguageContext';
+import { AdminAuthProvider } from './context/AdminAuthContext';
+import AdminLogin from './admin/AdminLogin';
+import ProtectedAdminRoute from './admin/ProtectedAdminRoute';
+import AdminLayout from './admin/AdminLayout';
+import AdminDashboard from './admin/AdminDashboard';
+import AdminBirds from './admin/AdminBirds';
+import AdminGallery from './admin/AdminGallery';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -20,6 +27,24 @@ function ScrollToTop() {
 }
 
 function AppLayout() {
+  const { pathname } = useLocation();
+  const isAdminRoute = pathname.startsWith('/admin');
+
+  if (isAdminRoute) {
+    return (
+      <Routes>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route element={<ProtectedAdminRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="birds" element={<AdminBirds />} />
+            <Route path="gallery" element={<AdminGallery />} />
+          </Route>
+        </Route>
+      </Routes>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -47,9 +72,11 @@ function AppLayout() {
 export default function App() {
   return (
     <LanguageProvider>
-      <BrowserRouter>
-        <AppLayout />
-      </BrowserRouter>
+      <AdminAuthProvider>
+        <BrowserRouter>
+          <AppLayout />
+        </BrowserRouter>
+      </AdminAuthProvider>
     </LanguageProvider>
   );
 }

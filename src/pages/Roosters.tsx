@@ -1,29 +1,32 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, SlidersHorizontal, CalendarDays } from 'lucide-react';
-import { ROOSTER_BREEDS } from '../constants';
 import RoosterCard from '../components/RoosterCard';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import { useBirds } from '../hooks/useBirds';
 
 import heroBg from '../assets/poultry-farm-clean-environment.jpg';
 import featuredImg from '../assets/premium-country-chicken.jpg';
 
-const BREEDS = ['All', 'Country White', 'Aseel', 'Kili Seval', 'Nattu Seval', 'Kadaknath', 'Giriraja'];
-const AGES = ['All Ages', '5–7 Months', '6–8 Months', '7–10 Months', '8–12 Months'];
-
 export default function Roosters() {
   const { t } = useLanguage();
+  const { birds, loading, error } = useBirds(false);
   const [breedFilter, setBreedFilter] = useState('All');
   const [ageFilter, setAgeFilter] = useState('All Ages');
   const [search, setSearch] = useState('');
   const [breedOpen, setBreedOpen] = useState(false);
   const [ageOpen, setAgeOpen] = useState(false);
 
-  const filtered = ROOSTER_BREEDS.filter((r) => {
+  const breeds = ['All', ...Array.from(new Set(birds.map((bird) => bird.breed))).filter(Boolean)];
+  const ages = ['All Ages', ...Array.from(new Set(birds.map((bird) => bird.age))).filter(Boolean)];
+
+  const filtered = birds.filter((r) => {
     const matchBreed = breedFilter === 'All' || r.breed === breedFilter;
-    const matchSearch = r.name.toLowerCase().includes(search.toLowerCase());
-    return matchBreed && matchSearch;
+    const matchAge = ageFilter === 'All Ages' || r.age === ageFilter;
+    const term = search.toLowerCase();
+    const matchSearch = [r.name_en, r.name_ta, r.breed, r.description].some((value) => value.toLowerCase().includes(term));
+    return matchBreed && matchAge && matchSearch;
   });
 
   return (
@@ -76,7 +79,7 @@ export default function Roosters() {
             </button>
             {breedOpen && (
               <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 z-30 min-w-[180px] py-1">
-                {BREEDS.map((b) => (
+                {breeds.map((b) => (
                   <button
                     key={b}
                     onClick={() => { setBreedFilter(b); setBreedOpen(false); }}
@@ -102,7 +105,7 @@ export default function Roosters() {
             </button>
             {ageOpen && (
               <div className="absolute top-full left-0 mt-1 bg-white rounded-xl shadow-lg border border-gray-100 z-30 min-w-[180px] py-1">
-                {AGES.map((a) => (
+                {ages.map((a) => (
                   <button
                     key={a}
                     onClick={() => { setAgeFilter(a); setAgeOpen(false); }}
@@ -131,7 +134,11 @@ export default function Roosters() {
 
       {/* ROOSTERS GRID */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-16 text-gray-400">{t('Loading roosters...')}</div>
+        ) : error ? (
+          <div className="text-center py-16 text-red-600">{error}</div>
+        ) : filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             <span className="text-5xl block mb-3">🐓</span>
             {t('No roosters found. Try a different filter.')}
@@ -139,7 +146,18 @@ export default function Roosters() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {filtered.map((r) => (
-              <RoosterCard key={r.id} {...r} />
+              <RoosterCard
+                key={r.id}
+                name={r.name_en}
+                nameTa={r.name_ta}
+                age={r.age}
+                price={r.price_text}
+                priceNum={r.price}
+                badge={r.badge}
+                description={r.description}
+                image={r.image_url || ''}
+                isAvailable={r.is_available}
+              />
             ))}
           </div>
         )}

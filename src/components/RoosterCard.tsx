@@ -1,19 +1,25 @@
 import { WHATSAPP_LINK } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
+import { badgeColor, birdDisplayPrice } from '../utils/format';
 
 interface RoosterCardProps {
   name: string;
+  nameTa?: string;
   age: string;
   price: string;
+  priceNum?: number | null;
   badge: string;
-  badgeColor: string;
+  badgeColor?: string;
   description: string;
   image: string;
+  isAvailable?: boolean;
 }
 
-export default function RoosterCard({ name, age, price, badge, badgeColor, description, image }: RoosterCardProps) {
+export default function RoosterCard({ name, nameTa, age, price, priceNum, badge, badgeColor: customBadgeColor, description, image, isAvailable = true }: RoosterCardProps) {
   const { t } = useLanguage();
-  const msg = encodeURIComponent(`Hi! I'm interested in ${name} (${age}) priced at ${price}. Please share availability.`);
+  const displayPrice = birdDisplayPrice({ is_available: isAvailable, price: priceNum ?? null, price_text: price });
+  const displayBadge = isAvailable ? badge : 'Sold Out';
+  const msg = encodeURIComponent(`Hi! I'm interested in ${name} (${age}) priced at ${displayPrice}. Please share availability.`);
 
   return (
     <div className="rooster-card">
@@ -26,18 +32,19 @@ export default function RoosterCard({ name, age, price, badge, badgeColor, descr
             (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&h=300&fit=crop&q=80';
           }}
         />
-        <span className={`absolute top-3 left-3 ${badgeColor} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
-          {t(badge)}
+        <span className={`absolute top-3 left-3 ${customBadgeColor || badgeColor(displayBadge, isAvailable)} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
+          {t(displayBadge)}
         </span>
       </div>
       <div className="p-4">
         <h3 className="font-bold text-darktext text-base mb-1">{t(name)}</h3>
+        {nameTa && <div className="text-primary text-xs font-semibold mb-1">{nameTa}</div>}
         <div className="flex items-center gap-1 text-gray-500 text-xs mb-2">
           <span>📅</span>
           <span>{t('Age: ')} {age}</span>
         </div>
         <p className="text-gray-500 text-xs mb-3 leading-relaxed">{t(description)}</p>
-        <div className="text-primary font-bold text-lg mb-3">{t(price)}</div>
+        <div className={`font-bold text-lg mb-3 ${isAvailable ? 'text-primary' : 'text-gray-500'}`}>{t(displayPrice)}</div>
         <a
           href={`${WHATSAPP_LINK}?text=${msg}`}
           target="_blank"

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { GALLERY_IMAGES } from '../constants';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import { useGalleryImages } from '../hooks/useGalleryImages';
 import heroBg from '../assets/rooster.png';
 import featuredImg from '../assets/country-rooster-healthy.jpg';
 
@@ -9,11 +9,12 @@ const CATEGORIES = ['All Photos', 'Roosters', 'Farm', 'Chicks', 'Farm Life', 'Fa
 
 export default function Gallery() {
   const { t } = useLanguage();
+  const { images, loading, error } = useGalleryImages(true);
   const [active, setActive] = useState('All Photos');
 
   const filtered = active === 'All Photos'
-    ? GALLERY_IMAGES
-    : GALLERY_IMAGES.filter((img) => img.category === active);
+    ? images
+    : images.filter((img) => img.category === active);
 
   return (
     <div>
@@ -71,11 +72,13 @@ export default function Gallery() {
       {/* IMAGE GRID */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
         <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-          {filtered.map((img) => (
+          {loading && <div className="text-center py-16 text-gray-400">{t('Loading gallery...')}</div>}
+          {error && <div className="text-center py-16 text-red-600">{error}</div>}
+          {!loading && !error && filtered.map((img) => (
             <div key={img.id} className="gallery-item rounded-xl overflow-hidden break-inside-avoid">
               <img
-                src={img.src}
-                alt={img.alt}
+                src={img.image_url}
+                alt={img.alt_text}
                 className="w-full h-auto object-cover transition-transform duration-500 hover:scale-110"
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = heroBg;
@@ -90,7 +93,7 @@ export default function Gallery() {
           ))}
         </div>
 
-        {filtered.length === 0 && (
+        {!loading && !error && filtered.length === 0 && (
           <div className="text-center py-16 text-gray-400">
             <span className="text-5xl block mb-3">📷</span>
             {t('No photos in this category yet.')}

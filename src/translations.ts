@@ -162,6 +162,10 @@ export const TRANSLATIONS: Record<string, Record<string, string>> = {
   'Available': { ta: 'இருப்பிலுள்ளது' },
   'Popular': { ta: 'பிரபலம்' },
   'Premium': { ta: 'சிறப்பு' },
+  'Sold Out': { ta: 'விற்றுத் தீர்ந்தது' },
+  'Currently Unavailable': { ta: 'தற்போது கிடைக்கவில்லை' },
+  'Loading roosters...': { ta: 'சேவல்கள் ஏற்றப்படுகின்றன...' },
+  'Loading gallery...': { ta: 'புகைப்படங்கள் ஏற்றப்படுகின்றன...' },
   'Age: ': { ta: 'வயது: ' },
   'Affordable Prices': { ta: 'கட்டுப்படியான விலைகள்' },
 };
