@@ -7,9 +7,9 @@ export default function About() {
   const { t } = useLanguage();
 
   const STATS = [
-    { icon: '🐓', value: '500+', label: t('Happy Customers') },
-    { icon: '⭐', value: '10+', label: t('Years of Experience') },
-    { icon: '🏡', value: '100%', label: t('Natural Care') },
+    { icon: '🐓', value: 'GAD', label: t('Bird ID Vision') },
+    { icon: '⭐', value: '100%', label: t('Quality Focus') },
+    { icon: '🏡', value: 'Long Term', label: t('Heritage Program') },
   ];
 
   const FARM_IMAGES = [
@@ -20,17 +20,17 @@ export default function About() {
   ];
 
   const COMMITMENT = [
-    { icon: <Heart size={20} />, label: t('We care for our birds') },
-    { icon: <Leaf size={20} />, label: t('We follow natural & healthy methods') },
-    { icon: <Shield size={20} />, label: t('We ensure quality in every bird') },
-    { icon: <Handshake size={20} />, label: t('We build trust with every customer') },
+    { icon: <Heart size={20} />, label: t('We put bird welfare before commercial value') },
+    { icon: <Leaf size={20} />, label: t('We select with patience and observation') },
+    { icon: <Shield size={20} />, label: t('We document reliable lineage information') },
+    { icon: <Handshake size={20} />, label: t('We build trust through transparent records') },
   ];
 
   const FARM_VALUES = [
-    { icon: '🌿', title: t('Natural Feeding'), desc: t('Only organic feed, no growth hormones') },
-    { icon: '💪', title: t('Healthy & Strong Birds'), desc: t('Regular vet checks and vaccinations') },
-    { icon: '🏆', title: t('Quality Breeds'), desc: t('Pure breeds – Aseel, Nattu, Kili & more') },
-    { icon: '🤝', title: t('Trusted by Customers'), desc: t('500+ customers across Tamil Nadu') },
+    { icon: '🌿', title: t('Selective Breeding'), desc: t('Purposeful selection over uncontrolled breeding') },
+    { icon: '💪', title: t('Health & Vitality'), desc: t('Development, structure and body condition matter') },
+    { icon: '🏆', title: t('Aseel Heritage'), desc: t('Preserving desirable Aseel characteristics') },
+    { icon: '🤝', title: t('Traceability'), desc: t('Bird identity, parentage and records where available') },
   ];
 
   return (
@@ -39,12 +39,12 @@ export default function About() {
       <section className="hero-section py-12 px-4">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="section-label mb-3 block">{t('About Us')}</span>
+            <span className="section-label mb-3 block">{t('About GAD GROWTHS')}</span>
             <h1 className="section-title text-4xl md:text-5xl font-bold text-primary-800 mb-5">
-              {t('Our Farm. Our Passion.')}<br />{t('Your Trust.')}
+              {t('Premium Aseel Breeding')}<br />{t('& Heritage Program')}
             </h1>
             <p className="text-gray-600 leading-relaxed mb-6">
-              {t('GRF Growths is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.')}
+              {t('GAD GROWTHS was established with a vision to create a professional and trusted identity in Aseel breeding, built on patience, observation, selection and proper records.')}
             </p>
             {/* Value Icons */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -73,16 +73,16 @@ export default function About() {
           <div>
             <h2 className="section-title text-2xl font-bold mb-4">{t('Our Story')}</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              {t('Our journey started with a passion for poultry farming and a dream to produce top quality roosters. We believe that good genetics, proper nutrition and hygiene are the key to raising strong birds.')}
+              {t('Our breeding program combines respect for traditional Aseel characteristics with a systematic approach to selection and documentation. We observe birds through development and consider their overall quality before deciding their role in the program.')}
             </p>
             <p className="text-gray-600 leading-relaxed mb-6">
-              {t('Today, our farm is trusted by many farmers and customers who value our quality, honesty and service.')}
+              {t('A selected bird is not treated simply as a male or female. Wherever records are available, it becomes part of a documented breeding history that helps us understand relationships between generations.')}
             </p>
             <blockquote className="border-l-4 border-primary pl-5 py-2 bg-primary-50 rounded-r-xl">
               <p className="text-primary font-medium italic text-sm">
-                {t('"We don\'t just raise roosters, we raise trust and long-term relationships."')}
+                {t('"Know the Bird. Know the Line. Build the Legacy."')}
               </p>
-              <footer className="text-gray-500 text-xs mt-1">{t('– Founder, GRF Growths')}</footer>
+              <footer className="text-gray-500 text-xs mt-1">{t('GAD GROWTHS - Built for Victory')}</footer>
             </blockquote>
           </div>
 
@@ -99,8 +99,8 @@ export default function About() {
             </div>
             {/* Tamil slogan */}
             <div className="card p-4 text-center bg-primary text-white rounded-2xl">
-              <p className="font-medium text-sm">"ஆரோக்கியமான கோழி – நம்பகமான பண்ணை"</p>
-              <p className="text-primary-200 text-xs mt-1">Healthy Birds – Trusted Farm</p>
+              <p className="font-medium text-sm">Quality. Lineage. Preservation. Progress.</p>
+              <p className="text-primary-200 text-xs mt-1">Built for Victory</p>
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function About() {
           <div className="mb-6">
             <h2 className="section-title text-2xl font-bold mb-2">{t('Our Commitment')}</h2>
             <p className="text-gray-600 text-sm max-w-xl">
-              {t('We are committed to providing healthy roosters with natural care and ethical farming practices. Your satisfaction and the birds\' well-being are always our top priority.')}
+              {t('We are committed to quality over quantity, responsible bird welfare, transparent information and long-term breed preservation.')}
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -145,8 +145,8 @@ export default function About() {
 
       {/* CTA */}
       <CTASection
-        title="Want to visit our farm?"
-        subtitle="Come meet our birds and see the farm in person!"
+        title="Want to understand our breeding program?"
+        subtitle="Connect with GAD GROWTHS to learn about selected Aseel lines, availability and records."
       />
     </div>
   );

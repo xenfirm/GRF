@@ -1,4 +1,4 @@
-// Site-wide constants for GRF Growths
+// Site-wide constants for GAD GROWTHS
 
 export const PHONE = '+91 99529 08818';
 export const PHONE_RAW = '919952908818';
@@ -16,8 +16,8 @@ export const MAPS_LINK = 'https://maps.app.goo.gl/gRkaQ4JexHB9AtSr6';
 
 export const NAV_LINKS = [
   { label: 'Home', to: '/' },
-  { label: 'Roosters', to: '/roosters' },
-  { label: 'About Us', to: '/about' },
+  { label: 'Aseel Lines', to: '/roosters' },
+  { label: 'About GAD', to: '/about' },
   { label: 'Gallery', to: '/gallery' },
   { label: 'Contact', to: '/contact' },
 ];

@@ -23,7 +23,7 @@ export default function AdminLayout() {
     <aside className="flex h-full w-72 flex-col bg-primary-900 text-white">
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-5">
         <div>
-          <div className="text-xl font-bold">GRF Admin</div>
+          <div className="text-xl font-bold">GAD Admin</div>
           <div className="text-xs text-primary-100">{user?.email}</div>
         </div>
         <button type="button" className="md:hidden" onClick={() => setOpen(false)}>
@@ -58,7 +58,7 @@ export default function AdminLayout() {
   return (
     <div className="min-h-screen bg-offwhite">
       <div className="md:hidden flex items-center justify-between bg-primary-900 px-4 py-3 text-white">
-        <span className="font-bold">GRF Admin</span>
+        <span className="font-bold">GAD Admin</span>
         <button type="button" onClick={() => setOpen(true)}>
           <Menu size={24} />
         </button>

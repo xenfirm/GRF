@@ -8,10 +8,10 @@ export default function Footer() {
   const { t } = useLanguage();
 
   const FOOTER_FARM = [
-    t('✔ Healthy Birds'),
-    t('✔ Natural Feeding'),
-    t('✔ Hygienic Environment'),
-    t('✔ Quality Breeds'),
+    t('✔ Selective Aseel Breeding'),
+    t('✔ Lineage Documentation'),
+    t('✔ Responsible Bird Welfare'),
+    t('✔ Heritage Preservation'),
   ];
 
   return (
@@ -20,14 +20,14 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <img src={logoImg} alt="GRF Growths Logo" className="w-12 h-12 object-contain shrink-0 bg-white rounded-full p-1" />
+            <img src={logoImg} alt="GAD GROWTHS Logo" className="w-12 h-12 object-contain shrink-0 bg-white rounded-full p-1" />
             <div>
-              <div className="font-display font-bold text-white text-base leading-none">GRF</div>
+              <div className="font-display font-bold text-white text-base leading-none">GAD</div>
               <div className="text-xs font-semibold text-primary-200 tracking-widest uppercase">Growths</div>
             </div>
           </div>
           <p className="text-primary-200 text-sm leading-relaxed mb-5">
-            {t('Raising healthy, strong and pure breed roosters with natural care and dedication.')}
+            {t('A premium Aseel breeding and heritage program built on quality, lineage, preservation and progress.')}
           </p>
           <div className="flex items-center gap-3">
             <a href={FACEBOOK_LINK} target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-primary-700 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200">
@@ -96,7 +96,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-primary-700 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-2 text-primary-300 text-xs">
-          <div>{t('© 2026 GRF Growths. All Rights Reserved.')}</div>
+          <div>{t('© 2026 GAD GROWTHS. All Rights Reserved.')}</div>
           <div>{t('Developed by')} <span className="font-semibold text-white">XenFirm Technologies</span></div>
         </div>
       </div>

@@ -6,6 +6,13 @@ import heroBg from '../assets/rooster.png';
 import featuredImg from '../assets/country-rooster-healthy.jpg';
 
 const CATEGORIES = ['All Photos', 'Roosters', 'Farm', 'Chicks', 'Farm Life', 'Facilities'];
+const CATEGORY_LABELS: Record<string, string> = {
+  Roosters: 'Breeding Birds',
+  Farm: 'Farm Facilities',
+  Chicks: 'Chicks & Eggs',
+  'Farm Life': 'Development Stages',
+  Facilities: 'Management Practices',
+};
 
 export default function Gallery() {
   const { t } = useLanguage();
@@ -30,12 +37,12 @@ export default function Gallery() {
         <div className="hero-overlay absolute inset-0 z-10" />
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 py-16 grid md:grid-cols-2 items-center gap-8">
           <div>
-            <span className="section-label mb-3 block">{t('Our Gallery')}</span>
+            <span className="section-label mb-3 block">{t('GAD Gallery')}</span>
             <h1 className="section-title text-4xl md:text-5xl font-bold text-primary-800 mb-3">
-              {t('Moments from')}<br />{t('Our Farm')}
+              {t('Visual Record of')}<br />{t('Our Breeding Journey')}
             </h1>
             <p className="text-gray-600 text-base max-w-md leading-relaxed">
-              {t('Explore our farm, healthy roosters and the natural environment where they grow strong.')}
+              {t('Explore selected breeding birds, chicks, eggs, facilities and development stages that show the work behind GAD GROWTHS.')}
             </p>
           </div>
           <div className="hidden md:block">
@@ -63,7 +70,7 @@ export default function Gallery() {
               {cat === 'Chicks' && '🐣 '}
               {cat === 'Farm Life' && '👨‍🌾 '}
               {cat === 'Facilities' && '🏠 '}
-              {t(cat)}
+              {t(CATEGORY_LABELS[cat] || cat)}
             </button>
           ))}
         </div>
@@ -104,8 +111,8 @@ export default function Gallery() {
       {/* CTA */}
       <CTASection
         icon="📸"
-        title="Want to See Our Farm in Person?"
-        subtitle="You are always welcome to visit our farm and see our roosters."
+        title="Want to see the story behind each bird?"
+        subtitle="Where possible, gallery records can connect selected birds with Bird ID and lineage information."
       />
     </div>
   );

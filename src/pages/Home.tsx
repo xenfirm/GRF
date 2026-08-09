@@ -14,16 +14,16 @@ export default function Home() {
   const featuredBirds = birds.filter((bird) => bird.is_featured).slice(0, 4);
 
   const WHY_CHOOSE = [
-    { icon: <Leaf size={22} />, title: t('Natural Feeding'), desc: t('All our birds are fed with organic, natural feed – no artificial growth hormones ever.') },
-    { icon: <Shield size={22} />, title: t('Healthy & Strong Birds'), desc: t('Regular health checks and vaccinations ensure every rooster is 100% healthy.') },
-    { icon: <Award size={22} />, title: t('Quality Breeds'), desc: t('We specialize in Aseel, Nattu Seval, Kili, and Country White pure breeds.') },
-    { icon: <Users size={22} />, title: t('Trusted by Customers'), desc: t('Over 500+ happy customers across Tirupattur district and surrounding areas.') },
+    { icon: <Leaf size={22} />, title: t('Selective Breeding'), desc: t('Every selected bird is evaluated for structure, vitality, development and breeding purpose.') },
+    { icon: <Shield size={22} />, title: t('Responsible Bird Welfare'), desc: t('Quality begins with suitable nutrition, clean water, hygiene, observation and responsible management.') },
+    { icon: <Award size={22} />, title: t('Lineage Documentation'), desc: t('Where reliable records are available, we preserve parentage, generation and breeding history.') },
+    { icon: <Users size={22} />, title: t('Heritage Preservation'), desc: t('Our long-term goal is to protect desirable Aseel characteristics across future generations.') },
   ];
 
   const TESTIMONIALS = [
-    { name: 'Murugan K.', location: t('Tirupattur district'), text: t('"Excellent quality roosters! Bought 3 Aseel breed and they are very strong and healthy. Guru anna is very helpful."'), rating: 5 },
-    { name: 'Selvam R.', location: t('Namakkal'), text: t('"Best farm in Tirupattur district. The birds are very healthy and the prices are fair. Will definitely buy again!"'), rating: 5 },
-    { name: 'Rajan T.', location: t('Erode'), text: t('"Got Nattu Seval for traditional purpose. Very good quality. Trusted seller with great service."'), rating: 5 },
+    { name: t('Select'), location: t('Breeding Stock'), text: t('We begin by identifying birds with the right structure, health, development and available lineage for each breeding objective.'), rating: 5 },
+    { name: t('Document'), location: t('Bird ID & Lineage'), text: t('Selected birds can be connected with photographs, parentage, generation, breeding status and future offspring records.'), rating: 5 },
+    { name: t('Improve'), location: t('Future Generations'), text: t('Every generation becomes part of a continuing breeding history designed for quality, consistency and preservation.'), rating: 5 },
   ];
 
   return (
@@ -40,14 +40,14 @@ export default function Home() {
         <div className="hero-overlay absolute inset-0 z-10" />
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full py-16 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="section-label mb-3 block">{LOCATION}</span>
+            <span className="section-label mb-3 block">{t('Premium Aseel Breeding & Heritage Program')}</span>
             <h1 className="section-title text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary-800">
-              {t('Premium Quality')}<br />
-              <span className="text-primary">{t('Roosters')}</span><br />
-              {t('Raised Naturally')}
+              {t('Know the Bird.')}<br />
+              <span className="text-primary">{t('Know the Line.')}</span><br />
+              {t('Build the Legacy.')}
             </h1>
             <p className="text-gray-600 text-base md:text-lg mb-8 max-w-md leading-relaxed">
-              {t('Healthy, strong and pure breed roosters from our farm to your home. Natural care, ethical farming, trusted by 500+ customers.')}
+              {t('GAD GROWTHS is a premium Aseel breeding and heritage program dedicated to selective breeding, lineage documentation, responsible welfare and long-term breed preservation.')}
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={CALL_LINK} className="btn-primary text-base px-6 py-3">
@@ -73,15 +73,15 @@ export default function Home() {
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="section-label mb-3 block">{t('About Us')}</span>
+            <span className="section-label mb-3 block">{t('About GAD GROWTHS')}</span>
             <h2 className="section-title text-3xl md:text-4xl font-bold mb-5">
-              {t('Our Farm. Our Passion.')}<br />{t('Your Trust.')}
+              {t('Quality. Lineage.')}<br />{t('Preservation. Progress.')}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              {t('GRF Growths is a dedicated farm focused on raising healthy, strong and pure breed roosters. With years of experience and proper care, we provide the best quality birds to farmers and rooster lovers.')}
+              {t('GAD GROWTHS is built around the belief that every exceptional Aseel bird has a story, a purpose and a place in the future of its bloodline.')}
             </p>
             <p className="text-gray-600 leading-relaxed mb-6">
-              {t('We believe in natural farming – no shortcuts, no compromises. Every bird at our farm is raised with love, proper nutrition, and hygienic conditions.')}
+              {t('Our focus is not simply on raising or selling birds, but on carefully selecting breeding stock, maintaining available lineage information and improving across generations.')}
             </p>
             <Link to="/about" className="btn-primary inline-flex">
               {t('Know More')} <ChevronRight size={16} />
@@ -94,8 +94,8 @@ export default function Home() {
               className="w-full h-80 object-contain rounded-2xl shadow-card"
             />
             <div className="absolute -bottom-5 -left-5 bg-primary text-white rounded-2xl px-5 py-4 shadow-lg hidden sm:block">
-              <div className="text-3xl font-bold font-display">10+</div>
-              <div className="text-xs text-primary-100 font-medium">Years of Experience</div>
+              <div className="text-3xl font-bold font-display">GAD</div>
+              <div className="text-xs text-primary-100 font-medium">Built for Victory</div>
             </div>
           </div>
         </div>
@@ -106,11 +106,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <span className="section-label mb-2 block">{t('Our Roosters')}</span>
-              <h2 className="section-title text-3xl font-bold">{t('Featured Breeds')}</h2>
+              <span className="section-label mb-2 block">{t('Available Birds')}</span>
+              <h2 className="section-title text-3xl font-bold">{t('Selected Aseel Lines')}</h2>
             </div>
             <Link to="/roosters" className="text-primary font-semibold text-sm flex items-center gap-1 hover:underline">
-              {t('View All')} <ChevronRight size={16} />
+              {t('View Lines')} <ChevronRight size={16} />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -138,8 +138,8 @@ export default function Home() {
       {/* WHY CHOOSE US */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <div className="text-center mb-10">
-          <span className="section-label mb-2 block">{t('Why Us')}</span>
-          <h2 className="section-title text-3xl font-bold">{t('Why Choose GRF Growths?')}</h2>
+          <span className="section-label mb-2 block">{t('Why GAD')}</span>
+          <h2 className="section-title text-3xl font-bold">{t('Why Choose GAD GROWTHS?')}</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {WHY_CHOOSE.map((item) => (
@@ -154,12 +154,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* BREEDING PRINCIPLES */}
       <section className="bg-primary py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <span className="text-primary-200 font-semibold text-sm uppercase tracking-widest mb-2 block">{t('Testimonials')}</span>
-            <h2 className="font-display text-white text-3xl font-bold">{t('What Our Customers Say')}</h2>
+            <span className="text-primary-200 font-semibold text-sm uppercase tracking-widest mb-2 block">{t('Breeding Philosophy')}</span>
+            <h2 className="font-display text-white text-3xl font-bold">{t('Select - Pair - Hatch - Identify - Monitor - Evaluate - Improve')}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {TESTIMONIALS.map((t) => (
@@ -182,8 +182,8 @@ export default function Home() {
 
       {/* CTA */}
       <CTASection
-        title={t('Looking for quality roosters?')}
-        subtitle={t('Contact us today and bring home the best!')}
+        title={t('Interested in selected Aseel breeding stock?')}
+        subtitle={t('Contact GAD GROWTHS to check availability, lineage details and breeding plans.')}
       />
     </div>
   );

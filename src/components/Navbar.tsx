@@ -31,11 +31,11 @@ export default function Navbar() {
             {LOCATION}
           </div>
           <div className="flex items-center gap-4 text-gray-100">
-            <span>{t('Healthy Birds')}</span>
+            <span>{t('Quality Aseel Breeding')}</span>
             <span className="text-[10px]">●</span>
-            <span>{t('Natural Care')}</span>
+            <span>{t('Lineage Records')}</span>
             <span className="text-[10px]">●</span>
-            <span>{t('Strong Breeds')}</span>
+            <span>{t('Breed Preservation')}</span>
           </div>
           <div className="flex items-center gap-6">
             <a href={CALL_LINK} className="flex items-center gap-2 hover:text-gray-300 transition-colors">
@@ -54,9 +54,9 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 md:h-18">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={logoImg} alt="GRF Growths Logo" className="w-10 h-10 object-contain shrink-0 drop-shadow-sm" />
+            <img src={logoImg} alt="GAD GROWTHS Logo" className="w-10 h-10 object-contain shrink-0 drop-shadow-sm" />
             <div className="leading-tight">
-              <div className="font-display font-bold text-primary text-lg leading-none">GRF</div>
+              <div className="font-display font-bold text-primary text-lg leading-none">GAD</div>
               <div className="text-xs font-semibold text-gray-500 tracking-widest uppercase">Growths</div>
             </div>
           </Link>

@@ -61,7 +61,7 @@ export default function Contact() {
       return;
     }
 
-    const message = `Hi, I want to buy from GRF Growths.
+    const message = `Hi, I want to enquire with GAD GROWTHS.
 
 Name: ${form.name}
 Phone: ${form.phone}
@@ -90,11 +90,11 @@ Requirement: ${form.requirement || 'Not specified'}`;
           <div>
             <span className="section-label mb-3 block">{t('Contact Us')}</span>
             <h1 className="section-title text-4xl md:text-5xl font-bold text-primary-800 mb-3">
-              {t("We're Here to Help You!")}
+              {t('Connect with GAD GROWTHS')}
             </h1>
             <p className="text-gray-600 mb-6 max-w-md">
-              {t('Have questions about our roosters or want to visit our farm?')}<br />
-              {t('Get in touch with us anytime.')}
+              {t('Enquire about selected breeding birds, hatching eggs, chicks, available Aseel lines or our breeding program.')}<br />
+              {t('For current availability, pricing and transportation, contact us directly.')}
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={CALL_LINK} className="btn-primary text-sm px-5 py-2.5">
@@ -186,7 +186,7 @@ Requirement: ${form.requirement || 'Not specified'}`;
               <textarea
                 id="contact-requirement"
                 rows={4}
-                placeholder={t('Your Requirement (e.g. breed, quantity, purpose...)')}
+                placeholder={t('Your Requirement (e.g. breeding bird, Aseel line, hatching eggs, chicks...)')}
                 value={form.requirement}
                 onChange={e => setForm({ ...form, requirement: e.target.value })}
                 className="input-field resize-none"
@@ -227,7 +227,7 @@ Requirement: ${form.requirement || 'Not specified'}`;
             </div>
             <div className="md:col-span-2 h-64 md:h-72">
               <iframe
-                title="GRF Growths Location"
+                title="GAD GROWTHS Location"
                 src={`https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
                 width="100%"
                 height="100%"
@@ -243,8 +243,8 @@ Requirement: ${form.requirement || 'Not specified'}`;
 
       {/* CTA */}
       <CTASection
-        title="Looking for quality roosters?"
-        subtitle="Contact us today and bring home the best!"
+        title="Ready to enquire about GAD GROWTHS?"
+        subtitle="Share your requirement and we will confirm availability, pricing and transport details."
       />
     </div>
   );

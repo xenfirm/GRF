@@ -46,11 +46,11 @@ export default function Roosters() {
             <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
               <Link to="/" className="hover:text-primary transition-colors">{t('Home')}</Link>
               <span>›</span>
-              <span className="text-darktext font-medium">{t('Roosters')}</span>
+              <span className="text-darktext font-medium">{t('Aseel Lines')}</span>
             </div>
-            <h1 className="section-title text-4xl md:text-5xl font-bold text-primary-800 mb-3">{t('Our Roosters')}</h1>
+            <h1 className="section-title text-4xl md:text-5xl font-bold text-primary-800 mb-3">{t('Available Birds')}</h1>
             <p className="text-gray-600 text-base leading-relaxed max-w-md">
-              {t('Explore our premium quality roosters. Healthy, strong, and raised with natural care.')}
+              {t('GAD GROWTHS may offer selected Aseel breeding males, females, hatching eggs and chicks depending on breeding plans and availability.')}
             </p>
           </div>
           <div className="hidden md:flex justify-end">
@@ -73,7 +73,7 @@ export default function Roosters() {
               className="filter-btn gap-2 pr-6 min-w-[160px] justify-between"
             >
               <span className="flex items-center gap-2">
-                <SlidersHorizontal size={15} /> {breedFilter === 'All' ? t('Filter by Breed') : t(breedFilter)}
+                <SlidersHorizontal size={15} /> {breedFilter === 'All' ? t('Filter by Line') : t(breedFilter)}
               </span>
               <span className="ml-2 text-gray-400">▾</span>
             </button>
@@ -123,7 +123,7 @@ export default function Roosters() {
             <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
-              placeholder={t('Search roosters...')}
+              placeholder={t('Search birds, lines or records...')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="input-field pl-10"
@@ -165,8 +165,8 @@ export default function Roosters() {
 
       {/* CTA */}
       <CTASection
-        title="Looking for the Best Roosters?"
-        subtitle="Contact us today to check availability and visit our farm."
+        title="Need current availability or lineage details?"
+        subtitle="Contact us directly for selected birds, hatching eggs, chicks, pricing and transportation information."
       />
     </div>
   );

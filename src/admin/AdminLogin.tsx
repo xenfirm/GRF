@@ -36,7 +36,7 @@ export default function AdminLogin() {
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary-50 text-primary">
             <Lock size={24} />
           </div>
-          <h1 className="text-2xl font-bold text-darktext">GRF Admin Login</h1>
+          <h1 className="text-2xl font-bold text-darktext">GAD Admin Login</h1>
           <p className="mt-2 text-sm text-gray-500">Use your approved Supabase admin account.</p>
         </div>
         {(formError || error || unauthorized) && (
