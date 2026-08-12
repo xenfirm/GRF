@@ -29,6 +29,21 @@ export default function Roosters() {
     return matchBreed && matchAge && matchSearch;
   });
 
+  const AVAILABILITY_NOTES = [
+    {
+      title: 'Breeding Males & Females',
+      text: 'Selected Aseel breeding males and females may be offered only when they fit current program decisions and availability.',
+    },
+    {
+      title: 'Hatching Eggs & Chicks',
+      text: 'For eggs and chicks, information about the relevant breeding pair or line can be shared where records are available.',
+    },
+    {
+      title: 'Bird ID & Records',
+      text: 'Where appropriate, available birds can include GAD Bird ID, breed or line, age, generation, parentage and relevant health information.',
+    },
+  ];
+
   return (
     <div>
       {/* HERO */}
@@ -149,7 +164,6 @@ export default function Roosters() {
               <RoosterCard
                 key={r.id}
                 name={r.name_en}
-                nameTa={r.name_ta}
                 age={r.age}
                 price={r.price_text}
                 priceNum={r.price}
@@ -162,6 +176,27 @@ export default function Roosters() {
           </div>
         )}
       </div>
+
+      {/* AVAILABILITY DETAILS */}
+      <section className="bg-cream py-14 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-3xl mb-8">
+            <span className="section-label mb-3 block">Availability Approach</span>
+            <h2 className="section-title text-3xl font-bold mb-4">Connecting the Right Bird with the Right Breeder</h2>
+            <p className="text-gray-600 leading-relaxed">
+              Our priority is the development of the GAD GROWTHS breeding program, so not every bird is automatically offered for sale. Selected birds may be retained when they have importance for future generations. Availability can change as birds are selected, reserved, retained or sold.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {AVAILABILITY_NOTES.map((note) => (
+              <div key={note.title} className="card p-6">
+                <h3 className="font-display text-xl font-bold text-darktext mb-3">{note.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{note.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <CTASection

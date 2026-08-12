@@ -23,6 +23,12 @@ export default function Gallery() {
     ? images
     : images.filter((img) => img.category === active);
 
+  const GALLERY_PURPOSES = [
+    'Selected breeding males, females, chicks, eggs and farm facilities can be shown as part of the wider breeding journey.',
+    'Growth documentation helps visitors observe how selected birds develop across different stages.',
+    'Where possible, photographs can connect individual birds with GAD Bird ID and lineage information.',
+  ];
+
   return (
     <div>
       {/* HERO */}
@@ -107,6 +113,27 @@ export default function Gallery() {
           </div>
         )}
       </div>
+
+      {/* GALLERY PURPOSE */}
+      <section className="bg-cream py-14 px-4">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+          <div>
+            <span className="section-label mb-3 block">Gallery Purpose</span>
+            <h2 className="section-title text-3xl font-bold mb-4">More Than Attractive Photographs</h2>
+            <p className="text-gray-600 leading-relaxed">
+              The GAD GROWTHS gallery is designed as a visual record of our breeding journey. It gives visitors a genuine view of the work behind the birds: development, management practices, breeding facilities and the environment where selected Aseel lines are raised.
+            </p>
+          </div>
+          <div className="space-y-3">
+            {GALLERY_PURPOSES.map((purpose) => (
+              <div key={purpose} className="card p-4 flex gap-3">
+                <span className="text-primary font-bold">✓</span>
+                <p className="text-gray-600 text-sm leading-relaxed">{purpose}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* CTA */}
       <CTASection

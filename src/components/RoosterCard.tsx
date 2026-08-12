@@ -4,7 +4,6 @@ import { badgeColor, birdDisplayPrice } from '../utils/format';
 
 interface RoosterCardProps {
   name: string;
-  nameTa?: string;
   age: string;
   price: string;
   priceNum?: number | null;
@@ -15,7 +14,7 @@ interface RoosterCardProps {
   isAvailable?: boolean;
 }
 
-export default function RoosterCard({ name, nameTa, age, price, priceNum, badge, badgeColor: customBadgeColor, description, image, isAvailable = true }: RoosterCardProps) {
+export default function RoosterCard({ name, age, price, priceNum, badge, badgeColor: customBadgeColor, description, image, isAvailable = true }: RoosterCardProps) {
   const { t } = useLanguage();
   const displayPrice = birdDisplayPrice({ is_available: isAvailable, price: priceNum ?? null, price_text: price });
   const displayBadge = isAvailable ? badge : 'Sold Out';
@@ -38,7 +37,6 @@ export default function RoosterCard({ name, nameTa, age, price, priceNum, badge,
       </div>
       <div className="p-4">
         <h3 className="font-bold text-darktext text-base mb-1">{t(name)}</h3>
-        {nameTa && <div className="text-primary text-xs font-semibold mb-1">{nameTa}</div>}
         <div className="flex items-center gap-1 text-gray-500 text-xs mb-2">
           <span>📅</span>
           <span>{t('Age: ')} {age}</span>

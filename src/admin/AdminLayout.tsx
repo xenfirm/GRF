@@ -1,10 +1,12 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
-import { BarChart3, Bird, Images, LogOut, Menu, X } from 'lucide-react';
+import { BarChart3, Bird, FileText, Images, LogOut, Menu, Settings, X } from 'lucide-react';
 import { useState } from 'react';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
 const links = [
   { to: '/admin', label: 'Dashboard', icon: BarChart3 },
+  { to: '/admin/content', label: 'Website Content', icon: FileText },
+  { to: '/admin/settings', label: 'Site Settings', icon: Settings },
   { to: '/admin/birds', label: 'Bird Management', icon: Bird },
   { to: '/admin/gallery', label: 'Gallery Management', icon: Images },
 ];

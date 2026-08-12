@@ -1,12 +1,14 @@
-import { Bird, EyeOff, Images, Star } from 'lucide-react';
+import { Bird, EyeOff, FileText, Images, Star } from 'lucide-react';
 import LoadingState from '../components/LoadingState';
 import { useBirds } from '../hooks/useBirds';
 import { useGalleryImages } from '../hooks/useGalleryImages';
+import { useWebsiteContentSections } from '../hooks/useWebsiteContentSections';
 
 export default function AdminDashboard() {
   const { birds, loading: birdsLoading } = useBirds(false);
   const { images, loading: imagesLoading } = useGalleryImages(false);
-  const loading = birdsLoading || imagesLoading;
+  const { sections, loading: sectionsLoading } = useWebsiteContentSections(false);
+  const loading = birdsLoading || imagesLoading || sectionsLoading;
 
   if (loading) return <LoadingState label="Loading dashboard..." />;
 
@@ -17,6 +19,7 @@ export default function AdminDashboard() {
     { label: 'Featured birds', value: birds.filter((bird) => bird.is_featured).length, icon: Star },
     { label: 'Total gallery images', value: images.length, icon: Images },
     { label: 'Hidden gallery images', value: images.filter((image) => !image.is_visible).length, icon: EyeOff },
+    { label: 'Website sections', value: sections.length, icon: FileText },
   ];
 
   return (

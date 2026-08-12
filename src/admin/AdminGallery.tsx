@@ -109,7 +109,7 @@ export default function AdminGallery() {
         <div className="mb-4 flex items-center gap-2 font-bold"><Plus size={18} /> Upload images</div>
         <div className="grid gap-4 md:grid-cols-[1fr_220px_auto] md:items-end">
           <label className="text-sm font-semibold text-gray-700">
-            JPG, PNG or WebP images
+            JPG, PNG or WebP images. Uploads are automatically resized and compressed to WebP.
             <label className="mt-2 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-primary/30 bg-primary-50 px-4 py-6 text-sm font-semibold text-primary">
               <Upload size={18} />
               Choose one or more images

@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Phone, MapPin, Mail, Clock, Send, ShieldCheck } from 'lucide-react';
+import { Phone, MapPin, Mail, Clock, ShieldCheck } from 'lucide-react';
 import { PHONE, WHATSAPP_LINK, CALL_LINK, EMAIL, ADDRESS, HOURS, MAPS_LINK, LOCATION } from '../constants';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 import roosterImg from '../assets/rooster.png';
 
 export default function Contact() {
   const { t } = useLanguage();
+  const { get } = useSiteSettings();
 
   const CONTACT_INFO = [
   {
@@ -90,11 +92,10 @@ Requirement: ${form.requirement || 'Not specified'}`;
           <div>
             <span className="section-label mb-3 block">{t('Contact Us')}</span>
             <h1 className="section-title text-4xl md:text-5xl font-bold text-primary-800 mb-3">
-              {t('Connect with GAD GROWTHS')}
+              {t(get('contact_hero_title'))}
             </h1>
             <p className="text-gray-600 mb-6 max-w-md">
-              {t('Enquire about selected breeding birds, hatching eggs, chicks, available Aseel lines or our breeding program.')}<br />
-              {t('For current availability, pricing and transportation, contact us directly.')}
+              {t(get('contact_hero_body'))}
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={CALL_LINK} className="btn-primary text-sm px-5 py-2.5">
@@ -204,6 +205,31 @@ Requirement: ${form.requirement || 'Not specified'}`;
         </div>
       </section>
 
+      {/* ENQUIRY GUIDANCE */}
+      <section className="bg-cream py-12 px-4">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-5">
+          <div className="card p-6 md:col-span-1">
+            <span className="section-label mb-3 block">Enquiry Details</span>
+            <h2 className="section-title text-2xl font-bold mb-3">{get('contact_guide_title')}</h2>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              {get('contact_guide_body')}
+            </p>
+          </div>
+          <div className="card p-6">
+            <h3 className="font-display text-lg font-bold text-darktext mb-2">Availability & Pricing</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Current availability, pricing and transportation arrangements should always be confirmed directly because birds may be selected, retained, reserved or sold.
+            </p>
+          </div>
+          <div className="card p-6">
+            <h3 className="font-display text-lg font-bold text-darktext mb-2">Lineage Information</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Where reliable records are available, we can share details about the relevant bird, pair, generation, parentage and breeding line.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* MAP */}
       <section className="px-4 pb-10">
         <div className="max-w-7xl mx-auto card overflow-hidden p-0">
@@ -243,8 +269,8 @@ Requirement: ${form.requirement || 'Not specified'}`;
 
       {/* CTA */}
       <CTASection
-        title="Ready to enquire about GAD GROWTHS?"
-        subtitle="Share your requirement and we will confirm availability, pricing and transport details."
+        title={get('global_cta_title')}
+        subtitle={get('global_cta_subtitle')}
       />
     </div>
   );

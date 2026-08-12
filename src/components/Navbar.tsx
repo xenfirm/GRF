@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Phone, Menu, X, Languages } from 'lucide-react';
+import { ChevronDown, Phone, Menu, X } from 'lucide-react';
 import { NAV_LINKS, CALL_LINK, PHONE, WHATSAPP_LINK, LOCATION } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
+import { useWebsiteContentSections } from '../hooks/useWebsiteContentSections';
 import logoImg from '../assets/logo.png';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const { t, language, toggleLanguage } = useLanguage();
+  const { t } = useLanguage();
+  const { sections } = useWebsiteContentSections(true);
+  const aboutSubtopicLinks = sections
+    .filter((section) => section.show_in_nav)
+    .sort((a, b) => a.display_order - b.display_order)
+    .map((section) => ({
+      label: section.nav_label || section.title,
+      to: `/about#${section.section_key}`,
+    }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -64,26 +73,33 @@ export default function Navbar() {
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`nav-link pb-1 ${location.pathname === link.to ? 'active' : ''}`}
-              >
-                {t(link.label)}
-              </Link>
+              <div key={link.to} className="relative group py-5">
+                <Link
+                  to={link.to}
+                  className={`nav-link pb-1 inline-flex items-center gap-1 ${location.pathname === link.to ? 'active' : ''}`}
+                >
+                  {t(link.label)}
+                  {link.to === '/about' && <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />}
+                </Link>
+                {link.to === '/about' && (
+                  <div className="invisible absolute left-0 top-full z-50 w-64 translate-y-2 rounded-2xl border border-gray-100 bg-white p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                    {aboutSubtopicLinks.map((subLink) => (
+                      <Link
+                        key={subLink.to}
+                        to={subLink.to}
+                        className="block rounded-xl px-4 py-2.5 text-sm font-medium text-gray-600 hover:bg-primary-50 hover:text-primary"
+                      >
+                        {t(subLink.label)}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
-          {/* CTA & Language Toggle */}
+          {/* CTA */}
           <div className="flex items-center gap-3">
-            <button 
-              onClick={toggleLanguage}
-              className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-primary px-2 sm:px-3 py-1.5 sm:py-2 rounded-full border border-primary-200 hover:bg-primary-50 transition-colors"
-              title="Toggle English/Tamil"
-            >
-              <Languages size={16} />
-              {language === 'en' ? 'தமிழ்' : 'EN'}
-            </button>
             <a href={CALL_LINK} className="btn-primary hidden lg:inline-flex text-sm px-4 py-2.5">
               <Phone size={15} />
               {t('Call Now')}
@@ -102,15 +118,29 @@ export default function Navbar() {
         {menuOpen && (
           <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4 pt-2">
             {NAV_LINKS.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`block py-3 font-medium border-b border-gray-50 last:border-0 ${
-                  location.pathname === link.to ? 'text-primary' : 'text-darktext'
-                }`}
-              >
-                {t(link.label)}
-              </Link>
+              <div key={link.to} className="border-b border-gray-50 last:border-0">
+                <Link
+                  to={link.to}
+                  className={`block py-3 font-medium ${
+                    location.pathname === link.to ? 'text-primary' : 'text-darktext'
+                  }`}
+                >
+                  {t(link.label)}
+                </Link>
+                {link.to === '/about' && (
+                  <div className="grid gap-1 pb-3 pl-4">
+                    {aboutSubtopicLinks.map((subLink) => (
+                      <Link
+                        key={subLink.to}
+                        to={subLink.to}
+                        className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-500 hover:bg-primary-50 hover:text-primary"
+                      >
+                        {t(subLink.label)}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
             <a href={CALL_LINK} className="btn-primary w-full justify-center mt-4">
               <Phone size={16} /> {t('Call Now')}
