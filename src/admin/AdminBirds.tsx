@@ -84,7 +84,7 @@ export default function AdminBirds() {
                       <img src={bird.image_url || ''} alt={bird.name_en} className="h-12 w-12 rounded-lg bg-primary-50 object-cover" />
                       <div>
                         <div className="font-semibold text-darktext">{bird.name_en}</div>
-                        <div className="text-xs text-gray-500">{bird.name_ta}</div>
+                        <div className="text-xs text-gray-500">{bird.name_ta || bird.breed}</div>
                       </div>
                     </div>
                   </td>

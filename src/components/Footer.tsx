@@ -2,16 +2,18 @@ import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { PHONE, WHATSAPP_LINK, EMAIL, ADDRESS, CALL_LINK, NAV_LINKS, FACEBOOK_LINK, INSTAGRAM_LINK, LOCATION } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 import logoImg from '../assets/logo.png';
 
 export default function Footer() {
   const { t } = useLanguage();
+  const { get } = useSiteSettings();
 
   const FOOTER_FARM = [
-    t('✔ Selective Aseel Breeding'),
-    t('✔ Lineage Documentation'),
-    t('✔ Responsible Bird Welfare'),
-    t('✔ Heritage Preservation'),
+    get('footer_feature_1'),
+    get('footer_feature_2'),
+    get('footer_feature_3'),
+    get('footer_feature_4'),
   ];
 
   return (
@@ -27,7 +29,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="text-primary-200 text-sm leading-relaxed mb-5">
-            {t('A premium Aseel breeding and heritage program built on quality, lineage, preservation and progress.')}
+            {t(get('footer_description'))}
           </p>
           <div className="flex items-center gap-3">
             <a href={FACEBOOK_LINK} target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-primary-700 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-200">
@@ -96,7 +98,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-primary-700 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-2 text-primary-300 text-xs">
-          <div>{t('© 2026 GAD GROWTHS. All Rights Reserved.')}</div>
+          <div>{t(get('footer_copyright'))}</div>
           <div>{t('Developed by')} <span className="font-semibold text-white">XenFirm Technologies</span></div>
         </div>
       </div>

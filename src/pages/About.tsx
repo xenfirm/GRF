@@ -1,10 +1,11 @@
-import { Heart, Leaf, Shield, Handshake } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
+import { useWebsiteContentSections } from '../hooks/useWebsiteContentSections';
 import aboutHeroImg from '../assets/grf-growths.jpeg';
 
 export default function About() {
   const { t } = useLanguage();
+  const { sections: contentSections, loading: contentLoading, error: contentError } = useWebsiteContentSections(true);
 
   const STATS = [
     { icon: '🐓', value: 'GAD', label: t('Bird ID Vision') },
@@ -19,19 +20,15 @@ export default function About() {
     { src: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop&q=80', label: t('Safe & Hygienic Coops') },
   ];
 
-  const COMMITMENT = [
-    { icon: <Heart size={20} />, label: t('We put bird welfare before commercial value') },
-    { icon: <Leaf size={20} />, label: t('We select with patience and observation') },
-    { icon: <Shield size={20} />, label: t('We document reliable lineage information') },
-    { icon: <Handshake size={20} />, label: t('We build trust through transparent records') },
-  ];
-
   const FARM_VALUES = [
     { icon: '🌿', title: t('Selective Breeding'), desc: t('Purposeful selection over uncontrolled breeding') },
     { icon: '💪', title: t('Health & Vitality'), desc: t('Development, structure and body condition matter') },
     { icon: '🏆', title: t('Aseel Heritage'), desc: t('Preserving desirable Aseel characteristics') },
     { icon: '🤝', title: t('Traceability'), desc: t('Bird identity, parentage and records where available') },
   ];
+
+  const sortedContentSections = [...contentSections].sort((a, b) => a.display_order - b.display_order);
+  const featuredContentSection = sortedContentSections[0];
 
   return (
     <div>
@@ -66,21 +63,18 @@ export default function About() {
         </div>
       </section>
 
-      {/* OUR STORY + STATS */}
-      <section className="py-12 px-4 bg-cream">
+      {/* FEATURED STORY + STATS */}
+      <section id={featuredContentSection?.section_key || 'our-story'} className="scroll-mt-28 py-12 px-4 bg-cream">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
           {/* Story */}
           <div>
-            <h2 className="section-title text-2xl font-bold mb-4">{t('Our Story')}</h2>
+            <h2 className="section-title text-2xl font-bold mb-4">{t(featuredContentSection?.title || 'Our Story')}</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
-              {t('Our breeding program combines respect for traditional Aseel characteristics with a systematic approach to selection and documentation. We observe birds through development and consider their overall quality before deciding their role in the program.')}
-            </p>
-            <p className="text-gray-600 leading-relaxed mb-6">
-              {t('A selected bird is not treated simply as a male or female. Wherever records are available, it becomes part of a documented breeding history that helps us understand relationships between generations.')}
+              {t(featuredContentSection?.body || 'Our breeding program combines respect for traditional Aseel characteristics with a systematic approach to selection and documentation.')}
             </p>
             <blockquote className="border-l-4 border-primary pl-5 py-2 bg-primary-50 rounded-r-xl">
               <p className="text-primary font-medium italic text-sm">
-                {t('"Know the Bird. Know the Line. Build the Legacy."')}
+                {t(featuredContentSection?.highlight || '"Know the Bird. Know the Line. Build the Legacy."')}
               </p>
               <footer className="text-gray-500 text-xs mt-1">{t('GAD GROWTHS - Built for Victory')}</footer>
             </blockquote>
@@ -97,7 +91,6 @@ export default function About() {
                 </div>
               ))}
             </div>
-            {/* Tamil slogan */}
             <div className="card p-4 text-center bg-primary text-white rounded-2xl">
               <p className="font-medium text-sm">Quality. Lineage. Preservation. Progress.</p>
               <p className="text-primary-200 text-xs mt-1">Built for Victory</p>
@@ -121,23 +114,38 @@ export default function About() {
         </div>
       </section>
 
-      {/* COMMITMENT */}
-      <section className="py-12 px-4 bg-cream">
+      {/* COMPLETE WEBSITE CONTENT TOPICS */}
+      <section className="py-14 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6">
-            <h2 className="section-title text-2xl font-bold mb-2">{t('Our Commitment')}</h2>
-            <p className="text-gray-600 text-sm max-w-xl">
-              {t('We are committed to quality over quantity, responsible bird welfare, transparent information and long-term breed preservation.')}
+          <div className="max-w-3xl mb-9">
+            <span className="section-label mb-3 block">Complete Program Overview</span>
+            <h2 className="section-title text-3xl md:text-4xl font-bold mb-4">
+              Every Topic Behind the GAD GROWTHS Vision
+            </h2>
+            <p className="text-gray-600 leading-relaxed">
+              GAD GROWTHS is more than an Aseel farm. It is a long-term breeding and heritage program built around quality, lineage documentation, transparency, responsible management and continuous improvement across generations.
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {COMMITMENT.map((c) => (
-              <div key={c.label} className="card p-5 flex flex-col items-center text-center gap-3 hover:-translate-y-1 transition-transform duration-300">
-                <div className="w-12 h-12 bg-primary-50 text-primary rounded-full flex items-center justify-center">
-                  {c.icon}
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {contentLoading && <div className="col-span-full text-center text-sm text-gray-500 py-8">Loading website content...</div>}
+            {contentError && <div className="col-span-full text-center text-sm text-red-600 py-8">{contentError}</div>}
+            {!contentLoading && !contentError && sortedContentSections.map((topic) => (
+              <article id={topic.section_key} key={topic.id} className="card scroll-mt-28 p-6">
+                <div className="flex items-start gap-4 mb-4">
+                  <span className="font-display text-3xl font-bold text-primary-200 leading-none">{String(topic.display_order).padStart(2, '0')}</span>
+                  <div>
+                    <h3 className="font-display text-xl font-bold text-darktext">{topic.title}</h3>
+                    <div className="w-14 h-1 bg-primary rounded-full mt-2" />
+                  </div>
                 </div>
-                <p className="text-sm font-medium text-darktext leading-snug">{c.label}</p>
-              </div>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">{topic.body}</p>
+                {topic.highlight && (
+                  <p className="text-primary-800 text-sm leading-relaxed font-medium bg-primary-50 rounded-xl p-4">
+                    {topic.highlight}
+                  </p>
+                )}
+              </article>
             ))}
           </div>
         </div>

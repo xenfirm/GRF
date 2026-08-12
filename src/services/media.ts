@@ -1,7 +1,9 @@
 import { requireSupabase } from '../lib/supabase';
 
-const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
+const MAX_IMAGE_SIZE = 12 * 1024 * 1024;
 const ACCEPTED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+const OUTPUT_IMAGE_TYPE = 'image/webp';
+const OUTPUT_IMAGE_QUALITY = 0.82;
 
 export function validateImage(file: File) {
   if (!ACCEPTED_TYPES.includes(file.type)) {
@@ -14,7 +16,6 @@ export function validateImage(file: File) {
 }
 
 export function uniqueImagePath(folder: 'birds' | 'gallery', file: File) {
-  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const safeName = file.name
     .replace(/\.[^/.]+$/, '')
     .toLowerCase()
@@ -22,16 +23,15 @@ export function uniqueImagePath(folder: 'birds' | 'gallery', file: File) {
     .replace(/(^-|-$)/g, '')
     .slice(0, 40);
 
-  return `${folder}/${Date.now()}-${crypto.randomUUID()}-${safeName || 'image'}.${ext}`;
+  return `${folder}/${Date.now()}-${crypto.randomUUID()}-${safeName || 'image'}.webp`;
 }
 
-export async function resizeImage(file: File, maxWidth = 1600) {
-  if (!file.type.startsWith('image/') || file.size < 1024 * 1024) return file;
+export async function resizeImage(file: File, maxWidth = 1400) {
+  if (!file.type.startsWith('image/')) return file;
 
   const bitmap = await createImageBitmap(file);
-  if (bitmap.width <= maxWidth) return file;
+  const scale = Math.min(1, maxWidth / bitmap.width);
 
-  const scale = maxWidth / bitmap.width;
   const canvas = document.createElement('canvas');
   canvas.width = Math.round(bitmap.width * scale);
   canvas.height = Math.round(bitmap.height * scale);
@@ -42,11 +42,12 @@ export async function resizeImage(file: File, maxWidth = 1600) {
   context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
 
   const blob = await new Promise<Blob | null>((resolve) => {
-    canvas.toBlob(resolve, file.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.86);
+    canvas.toBlob(resolve, OUTPUT_IMAGE_TYPE, OUTPUT_IMAGE_QUALITY);
   });
 
   if (!blob) return file;
-  return new File([blob], file.name, { type: blob.type || file.type });
+  const outputName = file.name.replace(/\.[^/.]+$/, '.webp');
+  return new File([blob], outputName, { type: OUTPUT_IMAGE_TYPE });
 }
 
 export async function uploadImage(file: File, folder: 'birds' | 'gallery') {

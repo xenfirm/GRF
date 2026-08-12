@@ -42,11 +42,39 @@ create table if not exists public.gallery_images (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.website_content_sections (
+  id uuid primary key default gen_random_uuid(),
+  section_key text not null unique,
+  nav_label text not null,
+  title text not null,
+  body text not null,
+  highlight text not null default '',
+  display_order integer not null default 0,
+  show_in_nav boolean not null default true,
+  is_visible boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.site_settings (
+  id uuid primary key default gen_random_uuid(),
+  setting_key text not null unique,
+  setting_value text not null default '',
+  group_name text not null default 'General',
+  label text not null,
+  field_type text not null default 'text' check (field_type in ('text', 'textarea', 'url')),
+  display_order integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create index if not exists idx_admin_users_user_id on public.admin_users(user_id);
 create index if not exists idx_birds_public on public.birds(is_available, display_order);
 create index if not exists idx_birds_featured on public.birds(is_featured, display_order);
 create index if not exists idx_birds_breed on public.birds(breed);
 create index if not exists idx_gallery_public on public.gallery_images(is_visible, category, display_order);
+create index if not exists idx_website_content_public on public.website_content_sections(is_visible, show_in_nav, display_order);
+create index if not exists idx_site_settings_order on public.site_settings(group_name, display_order);
 
 create or replace function public.set_updated_at()
 returns trigger
@@ -68,6 +96,16 @@ create trigger set_gallery_images_updated_at
 before update on public.gallery_images
 for each row execute function public.set_updated_at();
 
+drop trigger if exists set_website_content_sections_updated_at on public.website_content_sections;
+create trigger set_website_content_sections_updated_at
+before update on public.website_content_sections
+for each row execute function public.set_updated_at();
+
+drop trigger if exists set_site_settings_updated_at on public.site_settings;
+create trigger set_site_settings_updated_at
+before update on public.site_settings
+for each row execute function public.set_updated_at();
+
 create or replace function public.is_admin()
 returns boolean
 language sql
@@ -85,6 +123,8 @@ $$;
 alter table public.admin_users enable row level security;
 alter table public.birds enable row level security;
 alter table public.gallery_images enable row level security;
+alter table public.website_content_sections enable row level security;
+alter table public.site_settings enable row level security;
 
 drop policy if exists "Admins can read admin users" on public.admin_users;
 create policy "Admins can read admin users"
@@ -117,6 +157,32 @@ create policy "Public can read visible gallery images"
 on public.gallery_images for select
 to anon, authenticated
 using (is_visible = true or public.is_admin());
+
+drop policy if exists "Admins can manage website content sections" on public.website_content_sections;
+create policy "Admins can manage website content sections"
+on public.website_content_sections for all
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+drop policy if exists "Public can read visible website content sections" on public.website_content_sections;
+create policy "Public can read visible website content sections"
+on public.website_content_sections for select
+to anon, authenticated
+using (is_visible = true or public.is_admin());
+
+drop policy if exists "Admins can manage site settings" on public.site_settings;
+create policy "Admins can manage site settings"
+on public.site_settings for all
+to authenticated
+using (public.is_admin())
+with check (public.is_admin());
+
+drop policy if exists "Public can read site settings" on public.site_settings;
+create policy "Public can read site settings"
+on public.site_settings for select
+to anon, authenticated
+using (true);
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (
@@ -185,6 +251,133 @@ values
   ('https://images.unsplash.com/photo-1589923188900-85dae523342b?w=1000&q=80', '', 'Farm Lifestyle', 'Farm Lifestyle', 'Farm Life', true, 5),
   ('https://images.unsplash.com/photo-1578969834528-27bb14a4afc6?w=1000&q=80', '', 'Feeding Time', 'Feeding Time', 'Facilities', true, 6)
 on conflict do nothing;
+
+insert into public.website_content_sections
+  (section_key, nav_label, title, body, highlight, display_order, show_in_nav, is_visible)
+values
+  (
+    'our-story',
+    'Our Story',
+    'Our Story',
+    'GAD GROWTHS was established with a vision to create a professional and trusted identity in Aseel breeding. Our philosophy is based on the belief that good breeding requires patience, observation, selection and proper records. Instead of focusing only on the present generation, we think about how today''s breeding decisions will influence future generations. Our breeding program combines respect for traditional Aseel characteristics with a systematic approach to selection and documentation.',
+    'Know the Bird. Know the Line. Build the Legacy.',
+    1,
+    true,
+    true
+  ),
+  (
+    'aseel-breeds',
+    'Our Aseel Breeds',
+    'Our Aseel Breeds',
+    'GAD GROWTHS focuses on selected Aseel breeding lines and their individual characteristics. Aseel birds can differ in appearance, structure, size, colour, development and historical background, so each line should be understood and evaluated on its own characteristics rather than judged only by appearance.',
+    'Each line is evaluated through background, parentage, generation and important physical characteristics where reliable information is available.',
+    2,
+    true,
+    true
+  ),
+  (
+    'breeding-program',
+    'Breeding Program',
+    'Breeding Program',
+    'The GAD GROWTHS breeding program is designed around purposeful selection rather than uncontrolled breeding. We begin by identifying suitable breeding birds, understanding their health, structure, development and available lineage, then planning breeding pairs according to the objectives of each line. After breeding, chicks can be identified and recorded so their development can be followed.',
+    'Select - Pair - Hatch - Identify - Monitor - Evaluate - Improve.',
+    3,
+    true,
+    true
+  ),
+  (
+    'lineage-pedigree',
+    'Lineage / Pedigree',
+    'Lineage / Pedigree',
+    'Lineage is one of the most important features planned for GAD GROWTHS. In a structured breeding program, knowing where a bird comes from helps breeders understand its background and make better future breeding decisions. Each important breeding bird can receive a unique GAD Bird ID.',
+    'The planned GAD Bird ID and Bloodline Registry will connect selected birds with parents, generation, photographs, hatch information, breeding status and offspring.',
+    4,
+    true,
+    true
+  ),
+  (
+    'available-birds',
+    'Available Birds',
+    'Available Birds',
+    'GAD GROWTHS may offer selected Aseel breeding males, females, hatching eggs and chicks depending on breeding plans and availability. Because our priority is the development of our own breeding program, not every bird will automatically be offered for sale.',
+    'Our objective is to connect the right bird with the right breeder through honest availability, background and suitability information.',
+    5,
+    true,
+    true
+  ),
+  (
+    'health-quality',
+    'Health & Quality',
+    'Health & Quality',
+    'Health is the foundation of every successful breeding program. Breeding quality cannot be separated from proper bird management, including suitable nutrition, clean water, appropriate housing, hygiene, biosecurity and regular observation throughout development.',
+    'Quality should be supported by proper management and honest information - not only attractive photographs.',
+    6,
+    true,
+    true
+  ),
+  (
+    'gallery-records',
+    'Gallery & Growth Records',
+    'Gallery & Growth Records',
+    'The GAD GROWTHS gallery is designed as a visual record of the breeding journey. Visitors can see selected breeding males, females, chicks, eggs, farm facilities and different stages of bird development. Growth documentation can show how selected birds progress over time.',
+    'Where possible, photos can connect individual birds with GAD Bird ID and lineage information.',
+    7,
+    true,
+    true
+  ),
+  (
+    'our-commitment',
+    'Our Commitment',
+    'Our Commitment',
+    'We are committed to quality over quantity, responsible bird welfare, transparent information and long-term breed preservation. Responsible breeding means putting bird welfare before commercial value and avoiding the promotion of unsuitable birds as premium breeding stock.',
+    'GAD GROWTHS represents quality, heritage, transparency and continuous improvement in Aseel breeding.',
+    8,
+    true,
+    true
+  )
+on conflict (section_key) do update
+set nav_label = excluded.nav_label,
+    title = excluded.title,
+    body = excluded.body,
+    highlight = excluded.highlight,
+    display_order = excluded.display_order,
+    show_in_nav = excluded.show_in_nav,
+    is_visible = excluded.is_visible;
+
+insert into public.site_settings
+  (setting_key, setting_value, group_name, label, field_type, display_order)
+values
+  ('seo_title', 'GAD GROWTHS | Premium Aseel Breeding & Heritage Program', 'SEO', 'SEO page title', 'text', 1),
+  ('seo_description', 'GAD GROWTHS is a premium Aseel breeding and heritage program focused on selective breeding, lineage documentation, responsible bird welfare and long-term breed preservation.', 'SEO', 'SEO meta description', 'textarea', 2),
+  ('seo_share_image', '/logo.png', 'SEO', 'Social sharing image URL', 'url', 3),
+  ('seo_canonical_url', '', 'SEO', 'Canonical website URL', 'url', 4),
+  ('business_name', 'GAD GROWTHS', 'SEO', 'Business schema name', 'text', 5),
+  ('business_description', 'Premium Aseel breeding and heritage program built around quality, lineage, preservation and progress.', 'SEO', 'Business schema description', 'textarea', 6),
+  ('home_hero_eyebrow', 'Premium Aseel Breeding & Heritage Program', 'Home', 'Hero eyebrow', 'text', 10),
+  ('home_hero_title_1', 'Know the Bird.', 'Home', 'Hero title line 1', 'text', 11),
+  ('home_hero_title_2', 'Know the Line.', 'Home', 'Hero title line 2', 'text', 12),
+  ('home_hero_title_3', 'Build the Legacy.', 'Home', 'Hero title line 3', 'text', 13),
+  ('home_hero_description', 'GAD GROWTHS is a premium Aseel breeding and heritage program dedicated to selective breeding, lineage documentation, responsible welfare and long-term breed preservation.', 'Home', 'Hero description', 'textarea', 14),
+  ('home_core_title', 'Quality. Lineage. Preservation. Progress.', 'Home', 'Core message title', 'text', 15),
+  ('home_core_body', 'GAD GROWTHS is more than an Aseel farm. It is a long-term breeding and heritage program built around the belief that every exceptional bird has a story, a purpose and a place in the future of its bloodline.', 'Home', 'Core message body', 'textarea', 16),
+  ('footer_description', 'A premium Aseel breeding and heritage program built on quality, lineage, preservation and progress.', 'Footer', 'Footer brand description', 'textarea', 30),
+  ('footer_feature_1', '✔ Selective Aseel Breeding', 'Footer', 'Footer feature 1', 'text', 31),
+  ('footer_feature_2', '✔ Lineage Documentation', 'Footer', 'Footer feature 2', 'text', 32),
+  ('footer_feature_3', '✔ Responsible Bird Welfare', 'Footer', 'Footer feature 3', 'text', 33),
+  ('footer_feature_4', '✔ Heritage Preservation', 'Footer', 'Footer feature 4', 'text', 34),
+  ('footer_copyright', '© 2026 GAD GROWTHS. All Rights Reserved.', 'Footer', 'Footer copyright', 'text', 35),
+  ('contact_hero_title', 'Connect with GAD GROWTHS', 'Contact', 'Contact hero title', 'text', 50),
+  ('contact_hero_body', 'Enquire about selected breeding birds, hatching eggs, chicks, available Aseel lines or our breeding program. For current availability, pricing and transportation, contact us directly.', 'Contact', 'Contact hero body', 'textarea', 51),
+  ('contact_guide_title', 'What to Ask Us', 'Contact', 'Contact guide title', 'text', 52),
+  ('contact_guide_body', 'Connect with GAD GROWTHS for enquiries about selected breeding birds, hatching eggs, chicks, our breeding program or available Aseel lines.', 'Contact', 'Contact guide body', 'textarea', 53),
+  ('global_cta_title', 'Interested in selected Aseel breeding stock?', 'CTA', 'Default CTA title', 'text', 70),
+  ('global_cta_subtitle', 'Contact GAD GROWTHS to check availability, lineage details and breeding plans.', 'CTA', 'Default CTA subtitle', 'textarea', 71)
+on conflict (setting_key) do update
+set setting_value = excluded.setting_value,
+    group_name = excluded.group_name,
+    label = excluded.label,
+    field_type = excluded.field_type,
+    display_order = excluded.display_order;
 
 -- Create the first admin:
 -- 1. In Supabase Dashboard, create an Auth user with email and password.

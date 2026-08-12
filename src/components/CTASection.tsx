@@ -1,6 +1,7 @@
 import { Phone } from 'lucide-react';
 import { CALL_LINK, WHATSAPP_LINK } from '../constants';
 import { useLanguage } from '../context/LanguageContext';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 
 interface CTASectionProps {
   icon?: string;
@@ -18,6 +19,9 @@ export default function CTASection({
   waLabel = 'WhatsApp Us',
 }: CTASectionProps) {
   const { t } = useLanguage();
+  const { get } = useSiteSettings();
+  const displayTitle = title || get('global_cta_title');
+  const displaySubtitle = subtitle || get('global_cta_subtitle');
 
   return (
     <section className="bg-cream py-8 px-4">
@@ -25,8 +29,8 @@ export default function CTASection({
         <div className="flex items-center gap-4">
           <span className="text-5xl shrink-0">{icon}</span>
           <div>
-            <h3 className="font-display text-xl font-bold text-darktext">{t(title)}</h3>
-            <p className="text-gray-500 text-sm mt-0.5">{t(subtitle)}</p>
+            <h3 className="font-display text-xl font-bold text-darktext">{t(displayTitle)}</h3>
+            <p className="text-gray-500 text-sm mt-0.5">{t(displaySubtitle)}</p>
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-3 shrink-0">

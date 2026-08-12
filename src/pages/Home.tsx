@@ -5,11 +5,13 @@ import RoosterCard from '../components/RoosterCard';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
 import { useBirds } from '../hooks/useBirds';
+import { useSiteSettings } from '../hooks/useSiteSettings';
 import roosterHeroBackground from '../assets/rooster.png';
 import roosterHeroOverlay from '../assets/country-rooster-healthy.jpg';
 
 export default function Home() {
   const { t } = useLanguage();
+  const { get } = useSiteSettings();
   const { birds, loading: birdsLoading, error: birdsError } = useBirds(true);
   const featuredBirds = birds.filter((bird) => bird.is_featured).slice(0, 4);
 
@@ -26,6 +28,21 @@ export default function Home() {
     { name: t('Improve'), location: t('Future Generations'), text: t('Every generation becomes part of a continuing breeding history designed for quality, consistency and preservation.'), rating: 5 },
   ];
 
+  const CORE_POINTS = [
+    {
+      title: 'Know the Bird',
+      text: 'Every selected bird is observed for its structure, health, development, vitality and purpose within the breeding vision.',
+    },
+    {
+      title: 'Know the Line',
+      text: 'Where reliable records exist, we preserve parentage, generation, photographs and breeding history so identity is not lost.',
+    },
+    {
+      title: 'Build the Legacy',
+      text: 'Our long-term ambition is to build a trusted Aseel heritage brand for people who value quality and responsible breeding.',
+    },
+  ];
+
   return (
     <div>
       {/* HERO */}
@@ -40,14 +57,14 @@ export default function Home() {
         <div className="hero-overlay absolute inset-0 z-10" />
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full py-16 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <span className="section-label mb-3 block">{t('Premium Aseel Breeding & Heritage Program')}</span>
+            <span className="section-label mb-3 block">{t(get('home_hero_eyebrow'))}</span>
             <h1 className="section-title text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-primary-800">
-              {t('Know the Bird.')}<br />
-              <span className="text-primary">{t('Know the Line.')}</span><br />
-              {t('Build the Legacy.')}
+              {t(get('home_hero_title_1'))}<br />
+              <span className="text-primary">{t(get('home_hero_title_2'))}</span><br />
+              {t(get('home_hero_title_3'))}
             </h1>
             <p className="text-gray-600 text-base md:text-lg mb-8 max-w-md leading-relaxed">
-              {t('GAD GROWTHS is a premium Aseel breeding and heritage program dedicated to selective breeding, lineage documentation, responsible welfare and long-term breed preservation.')}
+              {t(get('home_hero_description'))}
             </p>
             <div className="flex flex-wrap gap-3">
               <a href={CALL_LINK} className="btn-primary text-base px-6 py-3">
@@ -101,6 +118,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CORE MESSAGE */}
+      <section className="py-14 px-4 bg-primary-900 text-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-3xl mb-8">
+            <span className="text-primary-200 font-semibold text-sm uppercase tracking-widest mb-2 block">Website Core Message</span>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">{get('home_core_title')}</h2>
+            <p className="text-primary-100 leading-relaxed">
+              {get('home_core_body')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {CORE_POINTS.map((point) => (
+              <div key={point.title} className="bg-white/10 backdrop-blur rounded-2xl p-6">
+                <h3 className="font-display text-xl font-bold mb-2">{point.title}</h3>
+                <p className="text-primary-100 text-sm leading-relaxed">{point.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FEATURED ROOSTERS */}
       <section className="bg-cream py-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -120,7 +158,6 @@ export default function Home() {
               <RoosterCard
                 key={r.id}
                 name={r.name_en}
-                nameTa={r.name_ta}
                 age={r.age}
                 price={r.price_text}
                 priceNum={r.price}
@@ -182,8 +219,8 @@ export default function Home() {
 
       {/* CTA */}
       <CTASection
-        title={t('Interested in selected Aseel breeding stock?')}
-        subtitle={t('Contact GAD GROWTHS to check availability, lineage details and breeding plans.')}
+        title={get('global_cta_title')}
+        subtitle={get('global_cta_subtitle')}
       />
     </div>
   );

@@ -44,3 +44,33 @@ export interface AdminUser {
   email: string;
   created_at?: string;
 }
+
+export interface WebsiteContentSection {
+  id: string;
+  section_key: string;
+  nav_label: string;
+  title: string;
+  body: string;
+  highlight: string;
+  display_order: number;
+  show_in_nav: boolean;
+  is_visible: boolean;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export type WebsiteContentSectionInput = Omit<WebsiteContentSection, 'id' | 'created_at' | 'updated_at'>;
+
+export interface SiteSetting {
+  id: string;
+  setting_key: string;
+  setting_value: string;
+  group_name: string;
+  label: string;
+  field_type: 'text' | 'textarea' | 'url';
+  display_order: number;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export type SiteSettingInput = Omit<SiteSetting, 'id' | 'created_at' | 'updated_at'>;

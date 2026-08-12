@@ -88,8 +88,8 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
       </div>
       {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="text-sm font-semibold text-gray-700">English name<input className="input-field mt-2" value={form.name_en} onChange={(event) => update('name_en', event.target.value)} required /></label>
-        <label className="text-sm font-semibold text-gray-700">Tamil name<input className="input-field mt-2" value={form.name_ta} onChange={(event) => update('name_ta', event.target.value)} required /></label>
+        <label className="text-sm font-semibold text-gray-700">Bird name<input className="input-field mt-2" value={form.name_en} onChange={(event) => update('name_en', event.target.value)} required /></label>
+        <label className="text-sm font-semibold text-gray-700">Line / registry name<input className="input-field mt-2" value={form.name_ta} onChange={(event) => update('name_ta', event.target.value)} required /></label>
         <label className="text-sm font-semibold text-gray-700">Breed<input className="input-field mt-2" value={form.breed} onChange={(event) => update('breed', event.target.value)} required /></label>
         <label className="text-sm font-semibold text-gray-700">Age<input className="input-field mt-2" value={form.age} onChange={(event) => update('age', event.target.value)} required /></label>
         <label className="text-sm font-semibold text-gray-700">Price<input className="input-field mt-2" type="number" value={form.price ?? ''} onChange={(event) => update('price', event.target.value ? Number(event.target.value) : null)} /></label>
@@ -127,6 +127,7 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
               Delete image from bird
             </button>
           )}
+          <p className="text-xs text-gray-500">Images are automatically resized and compressed to WebP before upload.</p>
           <div className="flex flex-wrap gap-5 text-sm font-semibold text-gray-700">
             <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_available} onChange={(event) => update('is_available', event.target.checked)} /> Available</label>
             <label className="flex items-center gap-2"><input type="checkbox" checked={form.is_featured} onChange={(event) => update('is_featured', event.target.checked)} /> Featured</label>
