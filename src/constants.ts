@@ -12,6 +12,7 @@ export const WHATSAPP_LINK = `https://wa.me/${WHATSAPP}`;
 export const CALL_LINK = `tel:${PHONE_RAW}`;
 export const FACEBOOK_LINK = 'https://www.facebook.com/share/1ChfWmbqgN/';
 export const INSTAGRAM_LINK = 'https://www.instagram.com/guru_rooster/';
+export const YOUTUBE_LINK = 'https://www.youtube.com/@GADGROWTHS';
 export const MAPS_LINK = 'https://maps.app.goo.gl/gRkaQ4JexHB9AtSr6';
 
 export const NAV_LINKS = [
