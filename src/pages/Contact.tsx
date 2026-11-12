@@ -4,7 +4,7 @@ import { PHONE, WHATSAPP_LINK, CALL_LINK, EMAIL, ADDRESS, HOURS, MAPS_LINK, LOCA
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
 import { useSiteSettings } from '../hooks/useSiteSettings';
-import roosterImg from '../assets/rooster.png';
+import roosterImg from '../assets/rooster.jpg';
 
 export default function Contact() {
   const { t } = useLanguage();

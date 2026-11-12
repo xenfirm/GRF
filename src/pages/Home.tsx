@@ -6,7 +6,7 @@ import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
 import { useBirds } from '../hooks/useBirds';
 import { useSiteSettings } from '../hooks/useSiteSettings';
-import roosterHeroBackground from '../assets/rooster.png';
+import roosterHeroBackground from '../assets/rooster.jpg';
 import roosterHeroOverlay from '../assets/country-rooster-healthy.jpg';
 
 export default function Home() {

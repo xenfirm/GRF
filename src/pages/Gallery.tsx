@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CTASection from '../components/CTASection';
 import { useLanguage } from '../context/LanguageContext';
 import { useGalleryImages } from '../hooks/useGalleryImages';
-import heroBg from '../assets/rooster.png';
+import heroBg from '../assets/rooster.jpg';
 import featuredImg from '../assets/country-rooster-healthy.jpg';
 
 const CATEGORIES = ['All Photos', 'Roosters', 'Farm', 'Chicks', 'Farm Life', 'Facilities'];
