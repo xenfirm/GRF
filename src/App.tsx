@@ -10,6 +10,7 @@ import Roosters from './pages/Roosters';
 import About from './pages/About';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 import { LanguageProvider } from './context/LanguageContext';
 import { AdminAuthProvider } from './context/AdminAuthContext';
 import AdminLogin from './admin/AdminLogin';
@@ -68,7 +69,7 @@ function AppLayout() {
           <Route path="/about" element={<About />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<Home />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />

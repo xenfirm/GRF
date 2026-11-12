@@ -3,7 +3,7 @@ import type { SiteSetting } from '../types';
 export const DEFAULT_SITE_SETTINGS: SiteSetting[] = [
   { id: 'default-seo-title', setting_key: 'seo_title', setting_value: 'GAD GROWTHS | Premium Aseel Breeding & Heritage Program', group_name: 'SEO', label: 'SEO page title', field_type: 'text', display_order: 1 },
   { id: 'default-seo-description', setting_key: 'seo_description', setting_value: 'GAD GROWTHS is a premium Aseel breeding and heritage program focused on selective breeding, lineage documentation, responsible bird welfare and long-term breed preservation.', group_name: 'SEO', label: 'SEO meta description', field_type: 'textarea', display_order: 2 },
-  { id: 'default-seo-share-image', setting_key: 'seo_share_image', setting_value: '/logo.png', group_name: 'SEO', label: 'Social sharing image URL', field_type: 'url', display_order: 3 },
+  { id: 'default-seo-share-image', setting_key: 'seo_share_image', setting_value: '/og-image.jpg', group_name: 'SEO', label: 'Social sharing image URL', field_type: 'url', display_order: 3 },
   { id: 'default-seo-url', setting_key: 'seo_canonical_url', setting_value: '', group_name: 'SEO', label: 'Canonical website URL', field_type: 'url', display_order: 4 },
   { id: 'default-business-name', setting_key: 'business_name', setting_value: 'GAD GROWTHS', group_name: 'SEO', label: 'Business schema name', field_type: 'text', display_order: 5 },
   { id: 'default-business-description', setting_key: 'business_description', setting_value: 'Premium Aseel breeding and heritage program built around quality, lineage, preservation and progress.', group_name: 'SEO', label: 'Business schema description', field_type: 'textarea', display_order: 6 },

@@ -349,7 +349,7 @@ insert into public.site_settings
 values
   ('seo_title', 'GAD GROWTHS | Premium Aseel Breeding & Heritage Program', 'SEO', 'SEO page title', 'text', 1),
   ('seo_description', 'GAD GROWTHS is a premium Aseel breeding and heritage program focused on selective breeding, lineage documentation, responsible bird welfare and long-term breed preservation.', 'SEO', 'SEO meta description', 'textarea', 2),
-  ('seo_share_image', '/logo.png', 'SEO', 'Social sharing image URL', 'url', 3),
+  ('seo_share_image', '/og-image.jpg', 'SEO', 'Social sharing image URL', 'url', 3),
   ('seo_canonical_url', '', 'SEO', 'Canonical website URL', 'url', 4),
   ('business_name', 'GAD GROWTHS', 'SEO', 'Business schema name', 'text', 5),
   ('business_description', 'Premium Aseel breeding and heritage program built around quality, lineage, preservation and progress.', 'SEO', 'Business schema description', 'textarea', 6),

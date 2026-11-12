@@ -44,7 +44,9 @@ export default function SEOManager() {
   useEffect(() => {
     const title = get('seo_title');
     const description = get('seo_description');
-    const shareImage = get('seo_share_image');
+    const rawShareImage = get('seo_share_image') || '/og-image.jpg';
+    // Social crawlers need an absolute image URL.
+    const shareImage = /^https?:\/\//.test(rawShareImage) ? rawShareImage : new URL(rawShareImage, window.location.origin).href;
     const canonicalUrl = get('seo_canonical_url') || window.location.origin + window.location.pathname;
     const businessName = get('business_name', 'GAD GROWTHS');
     const businessDescription = get('business_description', description);
