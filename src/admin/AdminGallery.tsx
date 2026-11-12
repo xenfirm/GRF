@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { Edit, Eye, EyeOff, Plus, Trash2, Upload } from 'lucide-react';
+import { Crop, Edit, Eye, EyeOff, Plus, Trash2, Upload, X } from 'lucide-react';
 import ConfirmModal from '../components/ConfirmModal';
 import LoadingState from '../components/LoadingState';
 import Toast from '../components/Toast';
@@ -7,13 +7,27 @@ import { useGalleryImages } from '../hooks/useGalleryImages';
 import { createGalleryImage, deleteGalleryImage, updateGalleryImage } from '../services/gallery';
 import { uploadImage } from '../services/media';
 import type { GalleryCategory, GalleryImage } from '../types';
+import ImageCropper from './ImageCropper';
+import ImageGuideNote from './ImageGuideNote';
+import { IMAGE_GUIDES } from './imageGuidelines';
+
+const guide = IMAGE_GUIDES.gallery;
+
+interface PendingUpload {
+  id: string;
+  original: File;
+  file: File;
+  preview: string;
+  cropped: boolean;
+}
 
 const categories: GalleryCategory[] = ['Roosters', 'Farm', 'Chicks', 'Farm Life', 'Facilities'];
 
 export default function AdminGallery() {
   const { images, loading, error, refresh } = useGalleryImages(false);
   const [categoryFilter, setCategoryFilter] = useState<'All' | GalleryCategory>('All');
-  const [files, setFiles] = useState<File[]>([]);
+  const [files, setFiles] = useState<PendingUpload[]>([]);
+  const [cropTarget, setCropTarget] = useState<PendingUpload | null>(null);
   const [uploadCategory, setUploadCategory] = useState<GalleryCategory>('Roosters');
   const [uploading, setUploading] = useState(false);
   const [editing, setEditing] = useState<GalleryImage | null>(null);
@@ -24,7 +38,30 @@ export default function AdminGallery() {
   const filtered = categoryFilter === 'All' ? images : images.filter((image) => image.category === categoryFilter);
 
   function handleFiles(event: ChangeEvent<HTMLInputElement>) {
-    setFiles(Array.from(event.target.files || []));
+    const selected = Array.from(event.target.files || []);
+    event.target.value = '';
+    const added = selected.map((file) => ({ id: crypto.randomUUID(), original: file, file, preview: URL.createObjectURL(file), cropped: false }));
+    setFiles((current) => [...current, ...added]);
+    if (added.length === 1) setCropTarget(added[0]);
+  }
+
+  function applyCrop(cropped: File) {
+    if (!cropTarget) return;
+    const isOriginal = cropped === cropTarget.original;
+    const previous = files.find((item) => item.id === cropTarget.id);
+    if (previous) URL.revokeObjectURL(previous.preview);
+    setFiles((current) => current.map((item) => (
+      item.id === cropTarget.id
+        ? { ...item, file: cropped, preview: URL.createObjectURL(cropped), cropped: !isOriginal }
+        : item
+    )));
+    setCropTarget(null);
+  }
+
+  function removePending(id: string) {
+    const item = files.find((entry) => entry.id === id);
+    if (item) URL.revokeObjectURL(item.preview);
+    setFiles((current) => current.filter((item) => item.id !== id));
   }
 
   async function handleUpload(event: FormEvent) {
@@ -32,9 +69,9 @@ export default function AdminGallery() {
     if (files.length === 0) return;
     setUploading(true);
     try {
-      for (const [index, file] of files.entries()) {
+      for (const [index, { file, original }] of files.entries()) {
         const uploaded = await uploadImage(file, 'gallery');
-        const title = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]+/g, ' ');
+        const title = original.name.replace(/\.[^/.]+$/, '').replace(/[-_]+/g, ' ');
         await createGalleryImage({
           image_url: uploaded.publicUrl,
           image_path: uploaded.path,
@@ -99,6 +136,16 @@ export default function AdminGallery() {
   return (
     <div>
       <Toast message={toast} type={toastType} onClose={() => setToast(null)} />
+      {cropTarget && (
+        <ImageCropper
+          file={cropTarget.original}
+          aspects={guide.aspects}
+          initialAspect={guide.defaultAspect}
+          minOutputWidth={guide.minWidth}
+          onCancel={() => setCropTarget(null)}
+          onConfirm={applyCrop}
+        />
+      )}
       <ConfirmModal open={Boolean(deleteTarget)} title="Delete gallery image" message={`Delete ${deleteTarget?.title || 'this image'} and its storage file?`} onCancel={() => setDeleteTarget(null)} onConfirm={confirmDelete} />
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-darktext">Gallery Management</h1>
@@ -107,6 +154,7 @@ export default function AdminGallery() {
       {error && <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
       <form onSubmit={handleUpload} className="mb-6 rounded-xl bg-white p-5 shadow-card">
         <div className="mb-4 flex items-center gap-2 font-bold"><Plus size={18} /> Upload images</div>
+        <div className="mb-4"><ImageGuideNote guide={guide} /></div>
         <div className="grid gap-4 md:grid-cols-[1fr_220px_auto] md:items-end">
           <label className="text-sm font-semibold text-gray-700">
             JPG, PNG or WebP images. Uploads are automatically resized and compressed to WebP.
@@ -126,11 +174,21 @@ export default function AdminGallery() {
           </button>
         </div>
         {files.length > 0 && (
-          <div className="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-5 md:grid-cols-8">
-            {files.map((file) => (
-              <img key={`${file.name}-${file.size}`} src={URL.createObjectURL(file)} alt={file.name} className="aspect-square rounded-lg object-cover" />
-            ))}
-          </div>
+          <>
+            <p className="mt-4 text-xs text-gray-500">Click <Crop size={12} className="inline" /> on a photo to crop it before uploading. The thumbnail shows the photo's real shape.</p>
+            <div className="mt-2 grid grid-cols-3 gap-3 sm:grid-cols-5 md:grid-cols-8">
+              {files.map((item) => (
+                <div key={item.id} className="group relative flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+                  <img src={item.preview} alt={item.original.name} className="max-h-full max-w-full object-contain" />
+                  {item.cropped && <span className="absolute left-1 top-1 rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-white">Cropped</span>}
+                  <div className="absolute inset-x-1 bottom-1 flex justify-between">
+                    <button type="button" onClick={() => setCropTarget(item)} className="rounded bg-white/90 p-1.5 text-primary shadow hover:bg-white" aria-label="Crop image"><Crop size={14} /></button>
+                    <button type="button" onClick={() => removePending(item.id)} className="rounded bg-white/90 p-1.5 text-red-600 shadow hover:bg-white" aria-label="Remove image"><X size={14} /></button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         )}
       </form>
       {editing && (

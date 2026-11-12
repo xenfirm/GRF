@@ -1,7 +1,12 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { Trash2, Upload } from 'lucide-react';
+import { Crop, Trash2, Upload } from 'lucide-react';
 import type { Bird, BirdBadge, BirdInput } from '../types';
 import { uploadImage, deleteImage } from '../services/media';
+import ImageCropper from './ImageCropper';
+import ImageGuideNote from './ImageGuideNote';
+import { IMAGE_GUIDES } from './imageGuidelines';
+
+const guide = IMAGE_GUIDES.birds;
 
 const emptyBird: BirdInput = {
   name_en: '',
@@ -29,6 +34,9 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
   const [form, setForm] = useState<BirdInput>(emptyBird);
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const [cropSource, setCropSource] = useState<File | null>(null);
+  const [cropOpen, setCropOpen] = useState(false);
+  const [loadingCrop, setLoadingCrop] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -50,7 +58,32 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
     } : emptyBird);
     setPreview(null);
     setFile(null);
+    setCropSource(null);
+    setCropOpen(false);
   }, [bird]);
+
+  function applyCropped(cropped: File) {
+    setFile(cropped);
+    setPreview(URL.createObjectURL(cropped));
+    setCropOpen(false);
+  }
+
+  async function cropCurrentImage() {
+    if (!form.image_url) return;
+    setLoadingCrop(true);
+    setError(null);
+    try {
+      const response = await fetch(form.image_url);
+      if (!response.ok) throw new Error('Unable to load the current image for cropping.');
+      const blob = await response.blob();
+      setCropSource(new File([blob], `${form.name_en || 'bird'}.webp`, { type: blob.type || 'image/webp' }));
+      setCropOpen(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to load the current image for cropping.');
+    } finally {
+      setLoadingCrop(false);
+    }
+  }
 
   function update<K extends keyof BirdInput>(key: K, value: BirdInput[K]) {
     setForm((current) => ({ ...current, [key]: value }));
@@ -82,6 +115,16 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="rounded-xl bg-white p-5 shadow-card">
+      {cropOpen && cropSource && (
+        <ImageCropper
+          file={cropSource}
+          aspects={guide.aspects}
+          initialAspect={guide.defaultAspect}
+          minOutputWidth={guide.minWidth}
+          onCancel={() => setCropOpen(false)}
+          onConfirm={applyCropped}
+        />
+      )}
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-lg font-bold">{bird ? 'Edit bird' : 'Add bird'}</h2>
         <button type="button" onClick={onCancel} className="text-sm font-semibold text-gray-500 hover:text-primary">Close</button>
@@ -107,6 +150,8 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
           {(preview || form.image_url) && <img src={preview || form.image_url || ''} alt="Bird preview" className="h-full w-full object-cover" />}
         </div>
         <div className="space-y-3">
+          <ImageGuideNote guide={guide} />
+          <div className="flex flex-wrap gap-2">
           <label className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-gray-200 px-4 py-3 text-sm font-semibold hover:border-primary">
             <Upload size={16} />
             Upload or replace image
@@ -116,13 +161,27 @@ export default function BirdForm({ bird, onCancel, onSave }: BirdFormProps) {
               className="hidden"
               onChange={(event) => {
                 const selected = event.target.files?.[0] || null;
-                setFile(selected);
-                setPreview(selected ? URL.createObjectURL(selected) : null);
+                event.target.value = '';
+                if (!selected) return;
+                setCropSource(selected);
+                setCropOpen(true);
               }}
             />
           </label>
+          {cropSource ? (
+            <button type="button" onClick={() => setCropOpen(true)} className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-3 text-sm font-semibold hover:border-primary">
+              <Crop size={16} />
+              Crop again
+            </button>
+          ) : form.image_url && (
+            <button type="button" onClick={cropCurrentImage} disabled={loadingCrop} className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-3 text-sm font-semibold hover:border-primary disabled:opacity-60">
+              <Crop size={16} />
+              {loadingCrop ? 'Loading...' : 'Crop current image'}
+            </button>
+          )}
+          </div>
           {form.image_url && (
-            <button type="button" onClick={() => setForm((current) => ({ ...current, image_url: null }))} className="inline-flex items-center gap-2 text-sm font-semibold text-red-600">
+            <button type="button" onClick={() => { setForm((current) => ({ ...current, image_url: null })); setFile(null); setPreview(null); setCropSource(null); }} className="inline-flex items-center gap-2 text-sm font-semibold text-red-600">
               <Trash2 size={16} />
               Delete image from bird
             </button>
